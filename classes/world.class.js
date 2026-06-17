@@ -1,7 +1,11 @@
 class World {
     character = new Character();
-    chicken = new Chicken();
     ctx;
+    enemies = [
+        new Chicken(),
+        new Chicken(),
+        new Chicken()
+    ];
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -11,8 +15,9 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
-        this.ctx.drawImage(this.chicken.img, this.chicken.x, this.chicken.y, this.chicken.width, this.chicken.height);
-
+        this.enemies.forEach((enemy) => {
+            this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
+        });
         requestAnimationFrame(() => {
             this.draw();
         });

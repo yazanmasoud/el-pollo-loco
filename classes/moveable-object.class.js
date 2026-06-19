@@ -3,7 +3,7 @@ class MoveableObject {
     y = 350;
     img;
     width= 100;
-    height = 200;
+    height = 230;
 
     loadImage(path) {
         this.img = new Image();

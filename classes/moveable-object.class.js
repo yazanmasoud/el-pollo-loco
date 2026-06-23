@@ -21,7 +21,7 @@ class MoveableObject {
     }
 
     moveRight() {
-        console.log("roger! moving right");
+        this.x += 5;
 
     }
 

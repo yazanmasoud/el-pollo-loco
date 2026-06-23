@@ -23,9 +23,11 @@ class World {
         new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 720)
     ];
 
-    constructor(canvas) {
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.keyboard = keyboard;
+        this.character.world = this;
         this.draw();
     }
 

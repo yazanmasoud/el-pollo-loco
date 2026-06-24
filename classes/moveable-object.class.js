@@ -7,6 +7,7 @@ class MoveableObject {
     imageCache = {};
     currentImage = 0;
     speed = 0.15;
+    otherDirection = false;
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
@@ -21,7 +22,7 @@ class MoveableObject {
     }
 
     moveRight() {
-        this.x += 5;
+        this.x += this.speed;
 
     }
 
@@ -30,7 +31,7 @@ class MoveableObject {
     }
 
     jump() {
-        console.log("yoho am jumping...");
+        this.y -= this.speed;
 
     }
     animate() {

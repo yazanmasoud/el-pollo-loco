@@ -22,6 +22,10 @@ window.addEventListener('keydown', (event) => {
         keyboard.UP = true;
         
     }
+    if (event.key == 'SPACE') {
+        keyboard.SPACE = true;
+        
+    }
 });
 
 window.addEventListener('keyup', (event) => {
@@ -36,6 +40,10 @@ window.addEventListener('keyup', (event) => {
 
         if (event.key == 'ArrowUp') {
         keyboard.UP = false;
+        
+    }
+        if (event.key == 'SPACE') {
+        keyboard.SPACE = false;
         
     }
 });

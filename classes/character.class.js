@@ -34,6 +34,7 @@ class Character extends MoveableObject {
             if (this.world.keyboard.SPACE) {
                 this.jump();
             }
+            this.world.camera_x = -this.x
             
         },1000 / 60);
 

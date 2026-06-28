@@ -16,6 +16,13 @@ class MoveableObject {
         });
     }
 
+    playAnimation(images) {
+        let index = this.currentImage % this.IMAGES_WALKING.length;
+        let path = images[index];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+    }
+
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;

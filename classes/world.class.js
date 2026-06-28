@@ -3,7 +3,6 @@ class World {
     ctx;
     camera_x = 0;
     level = level1;
-    level_End_X = 700;
 
 
     constructor(canvas, keyboard) {
@@ -17,7 +16,7 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
-        
+
 
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.enemies);
@@ -44,6 +43,8 @@ class World {
             this.ctx.scale(-1, 1);
             movableObject.x = movableObject.x * -1;
         }
+        console.log(movableObject);
+        console.log(movableObject.img);
         this.ctx.drawImage(movableObject.img, movableObject.x, movableObject.y, movableObject.width, movableObject.height);
         if (movableObject.otherDirection) {
             movableObject.x = movableObject.x * -1;

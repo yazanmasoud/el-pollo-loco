@@ -22,11 +22,11 @@ class Character extends MoveableObject {
     animate() {
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_End_X ) {
                 this.moveRight();
                 this.otherDirection = false;
             }
-            if (this.world.keyboard.LEFT) {
+            if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
             }
@@ -34,7 +34,7 @@ class Character extends MoveableObject {
             if (this.world.keyboard.SPACE) {
                 this.jump();
             }
-            this.world.camera_x = -this.x
+            this.world.camera_x = -this.x + 100;
             
         },1000 / 60);
 

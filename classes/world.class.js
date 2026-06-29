@@ -43,8 +43,7 @@ class World {
             this.ctx.scale(-1, 1);
             movableObject.x = movableObject.x * -1;
         }
-        console.log(movableObject);
-        console.log(movableObject.img);
+
         this.ctx.drawImage(movableObject.img, movableObject.x, movableObject.y, movableObject.width, movableObject.height);
         if (movableObject.otherDirection) {
             movableObject.x = movableObject.x * -1;

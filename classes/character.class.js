@@ -50,6 +50,8 @@ class Character extends MoveableObject {
         this.speed = this.speed;
     }
 
+
+
     animate() {
 
         setInterval(() => {
@@ -62,10 +64,11 @@ class Character extends MoveableObject {
                 this.otherDirection = true;
             }
 
-            if (this.world.keyboard.SPACE) {
-                this.jump();
-            }
             this.world.camera_x = -this.x + 100;
+
+            if (this.world.keyboard.SPACE) {
+                this.speedY = 20;
+            }
 
         }, 1000 / 60);
 

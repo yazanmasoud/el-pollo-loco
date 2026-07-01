@@ -33,14 +33,27 @@ class MoveableObject {
 
     applyGravity() {
 
-       
-        
+
+
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY >0) {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);
+    }
+
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+
+    }
+
+    drawFrame(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '1';
+        ctx.strokeStyle = 'black';
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
     }
 
     isAboveGround() {
@@ -56,7 +69,7 @@ class MoveableObject {
     }
 
     jump() {
-        this.y -= this.speed;
+        this.speedY = 30;
     }
 
     animate() {

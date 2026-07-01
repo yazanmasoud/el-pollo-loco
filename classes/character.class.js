@@ -1,6 +1,6 @@
 class Character extends MoveableObject {
     x = 50;
-    y = 100;
+    y = 200;
     speed = 5;
     ground_Y_Position = 200;
     interval_counter = 0;
@@ -63,11 +63,10 @@ class Character extends MoveableObject {
                 this.moveLeft();
                 this.otherDirection = true;
             }
-
             this.world.camera_x = -this.x + 100;
 
-            if (this.world.keyboard.SPACE) {
-                this.speedY = 20;
+            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+                this.jump();
             }
 
         }, 1000 / 60);
@@ -76,7 +75,7 @@ class Character extends MoveableObject {
         setInterval(() => {
             this.interval_counter++;
 
-            if (this.isAboveGround()){
+            if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMP);
             }
 

@@ -38,6 +38,16 @@ class Character extends MoveableObject {
         'assets/img/2_character_pepe/3_jump/J-39.png',
     ]
 
+    IMAGES_DEAD = [
+        'assets/img/2_character_pepe/5_dead/D-51.png',
+        'assets/img/2_character_pepe/5_dead/D-52.png',
+        'assets/img/2_character_pepe/5_dead/D-53.png',
+        'assets/img/2_character_pepe/5_dead/D-54.png',
+        'assets/img/2_character_pepe/5_dead/D-55.png',
+        'assets/img/2_character_pepe/5_dead/D-56.png',
+        'assets/img/2_character_pepe/5_dead/D-57.png',
+    ] 
+
 
     constructor() {
         super();
@@ -45,6 +55,7 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_JUMP);
+        this.loadImages(this.IMAGES_DEAD);
         this.applyGravity();
         this.animate();
         this.speed = this.speed;
@@ -74,8 +85,11 @@ class Character extends MoveableObject {
 
         setInterval(() => {
             this.interval_counter++;
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            }
 
-            if (this.isAboveGround()) {
+            else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMP);
             }
 

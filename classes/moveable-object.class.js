@@ -10,6 +10,8 @@ class MoveableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2;
+    energy = 100;
+    dead = false;
 
     loadImages(arr) {
         arr.forEach((path) => {
@@ -64,6 +66,18 @@ class MoveableObject {
             this.y + this.height > mo.y &&
             this.x < mo.x + mo.width &&
             this.y < mo.y + mo.height;
+    }
+
+    hit(damage) {
+        this.energy -= damage;
+        if (this.energy < 0) {
+            this.energy = 0;
+            this.dead = true;
+        };
+    }
+
+    isDead() {
+        return this.dead===true;
     }
 
     isAboveGround() {

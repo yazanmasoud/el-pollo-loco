@@ -12,6 +12,7 @@ class MoveableObject {
     acceleration = 2;
     energy = 100;
     dead = false;
+    lastHit = 0;
 
     loadImages(arr) {
         arr.forEach((path) => {
@@ -27,7 +28,7 @@ class MoveableObject {
     }
 
     playAnimation(images) {
-        let index = this.currentImage % this.IMAGES_WALKING.length;
+        let index = this.currentImage % images.length;
         let path = images[index];
         this.img = this.imageCache[path];
         this.currentImage++;
@@ -70,16 +71,25 @@ class MoveableObject {
 
     hit(damage) {
         this.energy -= damage;
-        if (this.energy < 0) {
+        this.lastHit = Date.now();
+        if (this.energy <= 0) {
             this.energy = 0;
             this.dead = true;
+
         };
     }
 
     isDead() {
-        return this.dead===true;
+        return this.dead === true;
     }
 
+    isHurt() {
+        if(!this.isDead()) {
+            let timepassed = Date.now() - this.lastHit;
+            timepassed = timepassed / 1000;
+            return timepassed < 0.5;
+        }
+    }
     isAboveGround() {
         return this.y < this.ground_Y_Position
     }

@@ -4,6 +4,7 @@ class Character extends MoveableObject {
     speed = 5;
     ground_Y_Position = 200;
     interval_counter = 0;
+    deadAnimationPlayed = false;
     IMAGES_WALKING = [
         'assets/img/2_character_pepe/2_walk/W-21.png',
         'assets/img/2_character_pepe/2_walk/W-22.png',
@@ -46,7 +47,13 @@ class Character extends MoveableObject {
         'assets/img/2_character_pepe/5_dead/D-55.png',
         'assets/img/2_character_pepe/5_dead/D-56.png',
         'assets/img/2_character_pepe/5_dead/D-57.png',
-    ] 
+    ]
+
+    IMAGES_HURT = [
+        'assets/img/2_character_pepe/4_hurt/H-41.png',
+        'assets/img/2_character_pepe/4_hurt/H-42.png',
+        'assets/img/2_character_pepe/4_hurt/H-43.png',
+    ]
 
 
     constructor() {
@@ -56,6 +63,7 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.animate();
         this.speed = this.speed;
@@ -85,7 +93,12 @@ class Character extends MoveableObject {
 
         setInterval(() => {
             this.interval_counter++;
-            if (this.isDead()) {
+
+            if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            }
+
+            else if (this.isDead() ) {
                 this.playAnimation(this.IMAGES_DEAD);
             }
 

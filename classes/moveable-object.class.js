@@ -27,11 +27,24 @@ class MoveableObject {
         this.img.src = path;
     }
 
-    playAnimation(images) {
-        let index = this.currentImage % images.length;
-        let path = images[index];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+    playAnimation(images, loop) {
+        if (!loop) {
+            if (this.currentImage < images.length) {
+                let index = this.currentImage;
+                let path = images[index];
+                this.img = this.imageCache[path];
+                if (this.currentImage === images.length - 1) {
+                    return;
+                } 
+                    this.currentImage++;
+            }
+        } else {
+            let index = this.currentImage % images.length;
+            let path = images[index];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+
+        }
     }
 
     applyGravity() {
@@ -84,7 +97,7 @@ class MoveableObject {
     }
 
     isHurt() {
-        if(!this.isDead()) {
+        if (!this.isDead()) {
             let timepassed = Date.now() - this.lastHit;
             timepassed = timepassed / 1000;
             return timepassed < 0.5;

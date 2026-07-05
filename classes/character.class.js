@@ -4,7 +4,7 @@ class Character extends MoveableObject {
     speed = 5;
     ground_Y_Position = 200;
     interval_counter = 0;
-    deadAnimationPlayed = false;
+    currentAnimation = 'idle';
     IMAGES_WALKING = [
         'assets/img/2_character_pepe/2_walk/W-21.png',
         'assets/img/2_character_pepe/2_walk/W-22.png',
@@ -95,23 +95,43 @@ class Character extends MoveableObject {
             this.interval_counter++;
 
             if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
+                if (this.currentAnimation !== 'hurt') {
+                    this.currentAnimation = 'hurt';
+                    this.currentImage = 0;
+                }
+                this.playAnimation(this.IMAGES_HURT, true);
             }
 
-            else if (this.isDead() ) {
-                this.playAnimation(this.IMAGES_DEAD);
+            else if (this.isDead()) {
+                if (this.currentAnimation !== 'dead') {
+                    this.currentAnimation = 'dead';
+                    this.currentImage = 0;
+                }
+                this.playAnimation(this.IMAGES_DEAD, false);
             }
 
             else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMP);
+                if (this.currentAnimation !== 'jump') {
+                    this.currentAnimation = 'jump';
+                    this.currentImage = 0;
+                }
+                this.playAnimation(this.IMAGES_JUMP, true);
             }
 
             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                if (this.currentAnimation !== 'walking') {
+                    this.currentAnimation = 'walking';
+                    this.currentImage = 0;
+                }
 
-                this.playAnimation(this.IMAGES_WALKING);
+                this.playAnimation(this.IMAGES_WALKING, true);
 
             } else if (this.interval_counter % 2 == 0) {
-                this.playAnimation(this.IMAGES_IDLE);
+                if (this.currentAnimation !== 'idle') {
+                    this.currentAnimation = 'idle';
+                    this.currentImage = 0;
+                }
+                this.playAnimation(this.IMAGES_IDLE, true);
             }
 
         }, 100);

@@ -59,7 +59,6 @@ class World {
             this.flipImage(movableObject);
         }
 
-        movableObject.drawFrame(this.ctx);
 
         movableObject.draw(this.ctx);
 

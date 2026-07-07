@@ -1,5 +1,6 @@
 class World {
     character = new Character();
+    statusBar = new StatusBar();
     ctx;
     camera_x = 0;
     level = level1;
@@ -13,6 +14,7 @@ class World {
         this.draw();
         this.setWorld();
         this.checkCollisions();
+        
     }
 
     checkCollisions() {
@@ -35,6 +37,8 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
+        this.statusBar.setPercentage(this.character.energy);
+        this.addToMap(this.statusBar);
         this.ctx.translate(-this.camera_x, 0);
 
 

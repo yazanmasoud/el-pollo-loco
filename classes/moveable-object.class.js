@@ -7,18 +7,9 @@ class MoveableObject extends DrawableObject {
     dead = false;
     lastHit = 0;
 
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
 
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
+
+
 
     playAnimation(images, loop) {
         if (!loop) {
@@ -52,10 +43,7 @@ class MoveableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 
-    }
 
 
 

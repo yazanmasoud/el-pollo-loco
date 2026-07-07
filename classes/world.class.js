@@ -38,8 +38,8 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.statusBar.setPercentage(this.character.energy);
-        this.addToMap(this.statusBar);
         this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar);
 
 
 

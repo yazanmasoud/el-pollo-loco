@@ -40,6 +40,7 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.bottle);
         this.addToMap(this.character);
         this.healthStatusBar.setPercentage(this.character.energy);
         this.coinsStatusBar.setPercentage(0);

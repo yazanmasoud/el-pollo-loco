@@ -2,6 +2,8 @@ class World {
     character = new Character();
     statusBar = new StatusBar();
     healthStatusBar = new HealthStatusBar();
+    coinsStatusBar = new CoinsStatusBar();
+    bottleStatusBar = new BottleStatusBar();
     ctx;
     camera_x = 0;
     level = level1;
@@ -39,8 +41,12 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.healthStatusBar.setPercentage(this.character.energy);
+        this.coinsStatusBar.setPercentage(0);
+        this.bottleStatusBar.setPercentage(0);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.healthStatusBar);
+        this.addToMap(this.coinsStatusBar);
+        this.addToMap(this.bottleStatusBar);
 
 
 

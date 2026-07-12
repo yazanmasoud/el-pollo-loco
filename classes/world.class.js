@@ -38,6 +38,8 @@ class World {
                 if (this.character.isColliding(coin)){
                     this.level.coins.splice(index, 1);
                     this.coinsAmount++;
+                    
+                    
                 }
             })
         }, 100);
@@ -55,7 +57,7 @@ class World {
         this.addObjectsToMap(this.level.bottle);
         this.addToMap(this.character);
         this.healthStatusBar.setPercentage(this.character.energy);
-        this.coinsStatusBar.setPercentage(this.coinsAmount);
+        this.coinsStatusBar.setPercentage(this.coinsAmount * 10);
         this.bottleStatusBar.setPercentage(0);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.healthStatusBar);

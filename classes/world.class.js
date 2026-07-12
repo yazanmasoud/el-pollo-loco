@@ -7,6 +7,7 @@ class World {
     ctx;
     camera_x = 0;
     level = level1;
+    coinsAmount = 0;
 
 
     constructor(canvas, keyboard) {
@@ -16,26 +17,37 @@ class World {
         this.character.world = this;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.checkEnemyCollisions();
+        this.checkCoinsCollisions();
         
     }
 
-    checkCollisions() {
+    checkEnemyCollisions() {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit(enemy.damage);
-                    console.log(this.character.energy);   
                 }  
             });
         }, 100);
     }
 
+    checkCoinsCollisions() {
+        setInterval(() => {
+            this.level.coins.forEach((coin, index) => {
+                if (this.character.isColliding(coin)){
+                    this.level.coins.splice(index, 1);
+                    this.coinsAmount++;
+                }
+            })
+        }, 100);
+    }
+
+    
+
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
-
-
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
@@ -43,7 +55,7 @@ class World {
         this.addObjectsToMap(this.level.bottle);
         this.addToMap(this.character);
         this.healthStatusBar.setPercentage(this.character.energy);
-        this.coinsStatusBar.setPercentage(0);
+        this.coinsStatusBar.setPercentage(this.coinsAmount);
         this.bottleStatusBar.setPercentage(0);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.healthStatusBar);

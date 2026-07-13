@@ -7,8 +7,7 @@ class World {
     ctx;
     camera_x = 0;
     level = level1;
-    coinsAmount = 0;
-    bottleAmount = 0;
+
 
 
     constructor(canvas, keyboard) {
@@ -39,7 +38,7 @@ class World {
             this.level.coins.forEach((coin, index) => {
                 if (this.character.isColliding(coin)){
                     this.level.coins.splice(index, 1);
-                    this.coinsAmount++;
+                    this.character.coinsAmount++;
                     
                     
                 }
@@ -52,7 +51,7 @@ class World {
             this.level.bottle.forEach((bottle, index) => {
                 if (this.character.isColliding(bottle)){
                     this.level.bottle.splice(index, 1);
-                    this.bottleAmount++;
+                    this.character.bottleAmount++;
                 }
             })
         }, 100);
@@ -70,8 +69,8 @@ class World {
         this.addObjectsToMap(this.level.bottle);
         this.addToMap(this.character);
         this.healthStatusBar.setPercentage(this.character.energy);
-        this.coinsStatusBar.setPercentage(this.coinsAmount * 10);
-        this.bottleStatusBar.setPercentage(this.bottleAmount * 10);
+        this.coinsStatusBar.setPercentage(this.character.coinsAmount * 10);
+        this.bottleStatusBar.setPercentage(this.character.bottleAmount * 10);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.healthStatusBar);
         this.addToMap(this.coinsStatusBar);

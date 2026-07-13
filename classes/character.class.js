@@ -93,6 +93,10 @@ class Character extends MoveableObject {
                 this.jump();
             }
 
+            if (this.world.keyboard.D && this.bottleAmount > 0) {
+                this.throwBottle();
+            }
+
         }, 1000 / 60);
 
 
@@ -140,5 +144,13 @@ class Character extends MoveableObject {
             }
 
         }, 100);
+    }
+
+    throwBottle() {
+        console.log("hi");
+        
+        let bottle = new ThrowableBottle(this.x + 200, this.y + 100);
+        this.world.throwableBottles.push(bottle);
+        
     }
 }

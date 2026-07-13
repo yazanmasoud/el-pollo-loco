@@ -4,6 +4,8 @@ class World {
     healthStatusBar = new HealthStatusBar();
     coinsStatusBar = new CoinsStatusBar();
     bottleStatusBar = new BottleStatusBar();
+
+    throwableBottles = [];
     ctx;
     camera_x = 0;
     level = level1;
@@ -67,6 +69,7 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottle);
+        this.addObjectsToMap(this.throwableBottles);
         this.addToMap(this.character);
         this.healthStatusBar.setPercentage(this.character.energy);
         this.coinsStatusBar.setPercentage(this.character.coinsAmount * 10);

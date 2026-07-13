@@ -43,10 +43,6 @@ class MoveableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
-
-
-
-
     isColliding(mo) {
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&

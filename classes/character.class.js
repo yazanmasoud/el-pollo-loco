@@ -151,6 +151,8 @@ class Character extends MoveableObject {
         
         let bottle = new ThrowableBottle(this.x + 200, this.y + 100);
         this.world.throwableBottles.push(bottle);
+        bottle.throw();
+        this.bottleAmount--;
         
     }
 }

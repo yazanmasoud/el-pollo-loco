@@ -5,6 +5,7 @@ class Character extends MoveableObject {
     coinsAmount = 0;
     bottleAmount = 0;
     interval_counter = 0;
+    throwPressed = false;
     currentAnimation = 'idle';
     IMAGES_WALKING = [
         'assets/img/2_character_pepe/2_walk/W-21.png',
@@ -92,8 +93,13 @@ class Character extends MoveableObject {
                 this.jump();
             }
 
-            if (this.world.keyboard.D && this.bottleAmount > 0) {
+            if (this.world.keyboard.D && this.bottleAmount > 0 && !this.throwPressed) {
                 this.throwBottle();
+                this.throwPressed = true;
+            }
+
+            if (!this.world.keyboard.D) {
+                this.throwPressed = false;
             }
 
         }, 1000 / 60);

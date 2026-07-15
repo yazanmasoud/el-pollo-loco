@@ -4,7 +4,6 @@ class World {
     healthStatusBar = new HealthStatusBar();
     coinsStatusBar = new CoinsStatusBar();
     bottleStatusBar = new BottleStatusBar();
-
     throwableBottles = [];
     ctx;
     camera_x = 0;
@@ -22,7 +21,8 @@ class World {
         this.checkEnemyCollisions();
         this.checkCoinsCollisions();
         this.checkBottleCollisions();
-        
+        this.removeBrokenBottles();
+
     }
 
     checkEnemyCollisions() {
@@ -30,7 +30,7 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit(enemy.damage);
-                }  
+                }
             });
         }, 100);
     }
@@ -38,11 +38,11 @@ class World {
     checkCoinsCollisions() {
         setInterval(() => {
             this.level.coins.forEach((coin, index) => {
-                if (this.character.isColliding(coin)){
+                if (this.character.isColliding(coin)) {
                     this.level.coins.splice(index, 1);
                     this.character.coinsAmount++;
-                    
-                    
+
+
                 }
             })
         }, 100);
@@ -51,7 +51,7 @@ class World {
     checkBottleCollisions() {
         setInterval(() => {
             this.level.bottle.forEach((bottle, index) => {
-                if (this.character.isColliding(bottle)){
+                if (this.character.isColliding(bottle)) {
                     this.level.bottle.splice(index, 1);
                     this.character.bottleAmount++;
                 }
@@ -59,7 +59,7 @@ class World {
         }, 100);
     }
 
-    
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -119,5 +119,17 @@ class World {
     flipImageBack(movableObject) {
         this.ctx.restore();
         movableObject.x = movableObject.x * -1;
+    }
+
+    removeBrokenBottles() {
+        setInterval(() => {
+            for (let i = 0; i < this.throwableBottles.length; i++) {
+                let bottle = this.throwableBottles[i];
+                if (bottle.isBroken) {
+                    this.throwableBottles.splice(i, 1);
+                }
+            }
+        }, 100);
+
     }
 }

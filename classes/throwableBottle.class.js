@@ -1,5 +1,7 @@
 class ThrowableBottle extends MoveableObject {
 
+    isBroken = false;
+
     IMAGES_ROTATION = [
         'assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         'assets/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -29,6 +31,7 @@ class ThrowableBottle extends MoveableObject {
             this.playAnimation(this.IMAGES_ROTATION, true);
             if (this.y >= this.ground_Y_Position) {
                 clearInterval(bottleInterval);
+                this.isBroken = true;
             }
           }, 1000 / 25);
 

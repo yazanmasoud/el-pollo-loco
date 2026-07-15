@@ -6,6 +6,7 @@ class MoveableObject extends DrawableObject {
     energy = 100;
     dead = false;
     lastHit = 0;
+    ground_Y_Position = 200;
 
 
 
@@ -19,8 +20,8 @@ class MoveableObject extends DrawableObject {
                 this.img = this.imageCache[path];
                 if (this.currentImage === images.length - 1) {
                     return;
-                } 
-                    this.currentImage++;
+                }
+                this.currentImage++;
             }
         } else {
             let index = this.currentImage % images.length;

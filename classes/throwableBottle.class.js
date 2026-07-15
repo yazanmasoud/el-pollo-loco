@@ -16,19 +16,23 @@ class ThrowableBottle extends MoveableObject {
         this.width = 50;
         this.height = 50;
         this.speed = 10;
-
-
-
-
+        this.applyGravity();
+        this.ground_Y_Position = 360;
     }
 
     throw() {
-        setInterval(() => {
-            this.x += this.speed;
-            this.playAnimation(this.IMAGES_ROTATION , true);
+        this.speedY = 30;
 
-        }, 100);
+        const bottleInterval = setInterval(() => {
+            this.x += this.speed;
+
+            this.playAnimation(this.IMAGES_ROTATION, true);
+            if (this.y >= this.ground_Y_Position) {
+                clearInterval(bottleInterval);
+            }
+          }, 1000 / 25);
 
     }
+
 
 }

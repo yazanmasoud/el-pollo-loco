@@ -4,7 +4,6 @@ class Character extends MoveableObject {
     speed = 5;
     coinsAmount = 0;
     bottleAmount = 0;
-    ground_Y_Position = 200;
     interval_counter = 0;
     currentAnimation = 'idle';
     IMAGES_WALKING = [

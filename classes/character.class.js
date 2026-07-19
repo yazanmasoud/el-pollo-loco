@@ -153,7 +153,10 @@ class Character extends MoveableObject {
 
     throwBottle() {
         
-        let bottle = new ThrowableBottle(this.x + 100, this.y + 100);
+        let bottle = new ThrowableBottle(this.x + 100, this.y + 100, this.otherDirection);
+        if (this.otherDirection) {
+            bottle.x = this.x - 50;
+        }
         this.world.throwableBottles.push(bottle);
         bottle.throw();
         this.bottleAmount--;

@@ -21,6 +21,7 @@ class World {
         this.checkEnemyCollisions();
         this.checkCoinsCollisions();
         this.checkBottleCollisions();
+        this.checkBottleEnemyCollisions();
         this.removeBrokenBottles();
 
     }
@@ -57,6 +58,26 @@ class World {
                 }
             })
         }, 100);
+    }
+
+    checkBottleEnemyCollisions() {
+            setInterval(() =>{
+                this.throwableBottles.forEach((bottle) => {
+                    if (bottle.isBroken) {
+                        return;
+                    }
+                    this.level.enemies.forEach((enemy, index) => {
+                        if (bottle.isColliding(enemy)){
+                            bottle.playSplashAnimation();
+                           setTimeout(() => {
+                            this.level.enemies.splice(index, 1);
+                           }, 40); 
+                        }
+                    })
+                })
+
+
+            }, 1000 / 25);
     }
 
 

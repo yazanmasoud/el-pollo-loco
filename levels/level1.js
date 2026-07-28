@@ -1,7 +1,12 @@
 const level1 = new Level(
     [
         new Chicken(),
-        new Endboss()
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        
     ],
     [
         new Cloud(),
@@ -9,6 +14,11 @@ const level1 = new Level(
         new Cloud()
     ],
     [
+        new BackgroundObject('assets/img/5_background/layers/air.png', 720 * -2),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 720 * -2),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 720 * -2),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 720 * -2),
+
         new BackgroundObject('assets/img/5_background/layers/air.png', 720 * -1),
         new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 720 * -1),
         new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 720 * -1),
@@ -38,6 +48,26 @@ const level1 = new Level(
         new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 720 * 3),
         new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 720 * 3),
         new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 720 * 3),
+
+        new BackgroundObject('assets/img/5_background/layers/air.png', 720 * 4),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 720 * 4),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 720 * 4),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 720 * 4),
+        
+        new BackgroundObject('assets/img/5_background/layers/air.png', 720 * 5),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 720 * 5),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 720 * 5),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 720 * 5),
+
+        new BackgroundObject('assets/img/5_background/layers/air.png', 720 * 6),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 720 * 6),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 720 * 6),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 720 * 6),
+
+        new BackgroundObject('assets/img/5_background/layers/air.png', 720 * 7),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 720 * 7),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 720 * 7),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 720 * 7)
     ]
     , [
         new Coins(300, 350),
@@ -50,7 +80,16 @@ const level1 = new Level(
         new Bottle(700, 365),
         new Bottle(1100, 365),
         new Bottle(1500, 365),
-        new Bottle(1250, 365)
+        new Bottle(1250, 365),
+        new Bottle(1650, 365),
+        new Bottle(2050, 365),
+        new Bottle(2450, 365),
+        new Bottle(2850, 365),
+        new Bottle(3250, 365),
+        new Bottle(3650, 365),
+        new Bottle(4050, 365),
+        new Bottle(4450, 365),
+        new Bottle(4850, 365)
 
     ]
 );

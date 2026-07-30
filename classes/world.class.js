@@ -63,20 +63,21 @@ class World {
     checkBottleEnemyCollisions() {
             setInterval(() =>{
                 this.throwableBottles.forEach((bottle) => {
-                    if (bottle.isBroken) {
+                    if (bottle.isSplashing) {
                         return;
                     }
-                    this.level.enemies.forEach((enemy, index) => {
-                        if (bottle.isColliding(enemy)){
+                    for (let i = 0; i < this.level.enemies.length; i++) {
+                        let enemy = this.level.enemies[i];
+                        if (bottle.isColliding(enemy)) {
+                            bottle.isSplashing = true;
                             bottle.playSplashAnimation();
-                           setTimeout(() => {
-                            this.level.enemies.splice(index, 1);
-                           }, 40); 
+                            setTimeout(() => {
+                                this.level.enemies.splice(i, 1);
+                            }, 200);
+                            break;
                         }
-                    })
+                    }
                 })
-
-
             }, 1000 / 25);
     }
 

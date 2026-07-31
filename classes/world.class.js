@@ -113,6 +113,8 @@ class World {
         });
     }
 
+   
+
     setWorld() {
         this.character.world = this;
     }
@@ -157,6 +159,5 @@ class World {
                 }
             }
         }, 100);
-
     }
 }

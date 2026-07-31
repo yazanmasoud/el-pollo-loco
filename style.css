@@ -7,3 +7,39 @@ body {
 canvas { 
    background-color: black; 
 }
+
+.startButton {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 150px;
+    height: 50px;
+
+    border: 3px solid #9b4d00;
+    border-radius: 12px;
+
+    background: linear-gradient(to bottom, #ffd54f, #f39c12);
+    color: white;
+
+    font-size: 24px;
+    font-weight: bold;
+
+    cursor: pointer;
+    z-index: 1;
+
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.35);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.startButton:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    background: linear-gradient(to bottom, #ffe070, #ffb82e);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
+}
+
+.startButton:active {
+    transform: translate(-50%, -50%) scale(0.98);
+}

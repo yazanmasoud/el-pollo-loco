@@ -4,10 +4,13 @@ class World {
     healthStatusBar = new HealthStatusBar();
     coinsStatusBar = new CoinsStatusBar();
     bottleStatusBar = new BottleStatusBar();
+    startScreen = new StartScreen();
+
     throwableBottles = [];
     ctx;
     camera_x = 0;
     level = level1;
+    gameStarted = false;
 
 
 
@@ -23,6 +26,7 @@ class World {
         this.checkBottleCollisions();
         this.checkBottleEnemyCollisions();
         this.removeBrokenBottles();
+
 
     }
 
@@ -84,6 +88,9 @@ class World {
 
 
     draw() {
+        if (!this.gameStarted) {
+            this.addToMap(this.startScreen);
+        }else {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
@@ -100,10 +107,8 @@ class World {
         this.addToMap(this.healthStatusBar);
         this.addToMap(this.coinsStatusBar);
         this.addToMap(this.bottleStatusBar);
-
-
-
-        requestAnimationFrame(() => {
+        }
+                requestAnimationFrame(() => {
             this.draw();
         });
     }

@@ -19,7 +19,7 @@
     <script src="./classes/character.class.js" defer></script>
 
     <script src="./classes/world.class.js" defer></script>
-    
+
     <script src="./classes/chicken.class.js" defer></script>
     <script src="./classes/cloud.class.js" defer></script>
     <script src="./classes/background-object.class.js" defer></script>
@@ -38,7 +38,11 @@
 <body onload="init()">
     <h1>El Pollo Loco</h1>
     <canvas id="canvas" width="720px" height="480px"></canvas>
-    <button id="startButton" class="startButton" onclick="startGame()">Start</button>
+
+    <div class="menu">
+        <button id="startButton" class="menuButton" onclick="startGame()">Start</button>
+        <button id="controlsButton" class="menuButton">CONTROLS</button>
+    </div>
 </body>
 
 </html>

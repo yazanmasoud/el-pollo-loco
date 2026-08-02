@@ -5,7 +5,14 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    
+
+}
+
+function startGame() {
+    world.gameStarted = true;
+    document.getElementById('startButton').style.display = 'none';
+
+
 }
 
 window.addEventListener('keydown', (event) => {
@@ -20,11 +27,11 @@ window.addEventListener('keydown', (event) => {
 
     if (event.code == 'ArrowUp') {
         keyboard.UP = true;
-        
+
     }
     if (event.code == 'Space') {
         keyboard.SPACE = true;
-        
+
     }
     if (event.code == 'KeyD') {
         keyboard.D = true;
@@ -41,13 +48,13 @@ window.addEventListener('keyup', (event) => {
         keyboard.RIGHT = false;
     }
 
-        if (event.code == 'ArrowUp') {
+    if (event.code == 'ArrowUp') {
         keyboard.UP = false;
-        
+
     }
-        if (event.code == 'Space') {
+    if (event.code == 'Space') {
         keyboard.SPACE = false;
-        
+
     }
     if (event.code == 'KeyD') {
         keyboard.D = false;

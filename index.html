@@ -37,11 +37,18 @@
 
 <body onload="init()">
     <h1>El Pollo Loco</h1>
-    <canvas id="canvas" width="720px" height="480px"></canvas>
+    <div class="gameContainer">
 
-    <div class="menu">
-        <button id="startButton" class="menuButton" onclick="startGame()">Start</button>
-        <button id="controlsButton" class="menuButton">CONTROLS</button>
+        <canvas id="canvas" width="720" height="480"></canvas>
+
+        <div class="menu">
+            <button id="startButton" class="menuButton">START</button>
+            <button id="controlsButton" class="menuButton">CONTROLS</button>
+        </div>
+        <div class="gameButtons">
+            <button id="mute" class="iconButton muteButton"></button>
+            <button id="fullscreen" class="iconButton fullscreen-button"></button>
+        </div>
     </div>
 </body>
 

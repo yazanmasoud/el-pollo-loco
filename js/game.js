@@ -16,11 +16,10 @@ function startGame() {
     document.getElementById('mute').style.display = 'none';
     document.getElementById('fullscreen').style.display = 'none';
     music.playMenuMusic();
-
 }
 
 function toggleFullscreen() {
-let gameContainer = document.getElementById('gameContainer');
+    let gameContainer = document.getElementById('gameContainer');
 
     if (!gameContainer.fullscreenElement) {
         gameContainer.requestFullscreen();
@@ -29,6 +28,15 @@ let gameContainer = document.getElementById('gameContainer');
             gameContainer.exitFullscreen();
         }
     }
+}
+
+function openControls() {
+    document.getElementById("overlay").style.display = "flex";
+
+}
+
+function closeControls() {
+    document.getElementById("overlay").style.display = "none";
 }
 
 window.addEventListener('keydown', (event) => {

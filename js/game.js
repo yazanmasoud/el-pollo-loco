@@ -1,18 +1,34 @@
 let canvas;
 let world;
+let music;
 let keyboard = new Keyboard();
 
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
+    music = new Music();
 }
 
 function startGame() {
     world.gameStarted = true;
     document.getElementById('startButton').style.display = 'none';
+    document.getElementById('controlsButton').style.display = 'none';
+    document.getElementById('mute').style.display = 'none';
+    document.getElementById('fullscreen').style.display = 'none';
+    music.playMenuMusic();
 
+}
 
+function toggleFullscreen() {
+let gameContainer = document.getElementById('gameContainer');
+
+    if (!gameContainer.fullscreenElement) {
+        gameContainer.requestFullscreen();
+    } else {
+        if (gameContainer.exitFullscreen) {
+            gameContainer.exitFullscreen();
+        }
+    }
 }
 
 window.addEventListener('keydown', (event) => {

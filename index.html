@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EL Pollo Loco</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/dialog.css">
 
 
     <script src="./classes/drawable-object.class.js" defer></script>
@@ -48,12 +49,46 @@
             <button id="controlsButton" class="menuButton" onclick="openControls()">CONTROLS</button>
         </div>
 
-        <div id="overlay" class="overlay" onclick="closeControls()">
-            <div id="controlsDialog" class="controlsDialog" onclick="event.stopPropagation()">
-                <button id="closeControlsButton" onclick="closeControls()">x</button>
-                <h2>Controls</h2>
+<div id="overlay" class="overlay" onclick="closeControls()">
+
+    <div id="controlsDialog" class="controlsDialog" onclick="event.stopPropagation()">
+
+        <button id="closeControlsButton" class="closeButton" onclick="closeControls()">✕</button>
+
+        <h2 class="dialogTitle">Controls</h2>
+
+        <div class="controls">
+
+            <div class="control">
+                <div class="keys">
+                    <span class="key">←</span>
+                    <span class="key">→</span>
+                </div>
+
+                <span class="action">Move</span>
             </div>
+
+            <div class="control">
+                <div class="keys">
+                    <span class="key spaceKey">SPACE</span>
+                </div>
+
+                <span class="action">Jump</span>
+            </div>
+
+            <div class="control">
+                <div class="keys">
+                    <span class="key">D</span>
+                </div>
+
+                <span class="action">Throw Bottle</span>
+            </div>
+
         </div>
+
+    </div>
+
+</div>
 
         <div class="gameButtons">
             <button id="mute" class="iconButton muteButton"></button>

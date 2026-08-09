@@ -1,0 +1,143 @@
+/* ---------- OVERLAY ---------- */
+
+.overlay {
+    display: none;
+    position: absolute;
+
+    inset: 0;
+
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, .65);
+
+    z-index: 20;
+}
+
+/* ---------- DIALOG ---------- */
+
+.controlsDialog {
+    position: relative;
+
+    width: 520px;
+    padding: 30px;
+
+    background: #fdf4df;
+
+    border: 3px solid #9b4d00;
+    border-radius: 18px;
+
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .35);
+}
+
+/* ---------- TITLE ---------- */
+
+.dialogTitle {
+    margin: 0 0 25px;
+
+    text-align: center;
+
+    color: #6d3500;
+    font-size: 32px;
+
+    border-bottom: 2px solid #c58b2d;
+
+    padding-bottom: 12px;
+}
+
+/* ---------- CLOSE BUTTON ---------- */
+
+.closeButton {
+    position: absolute;
+
+    top: 15px;
+    right: 15px;
+
+    width: 35px;
+    height: 35px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: linear-gradient(to bottom,
+            #ffd96a,
+            #ffc547,
+            #f7a61b);
+
+    color: white;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        transform .18s ease,
+        filter .18s ease;
+}
+
+.closeButton:hover {
+    transform: scale(1.08);
+    filter: brightness(1.08);
+}
+
+.closeButton:active {
+    transform: scale(.95);
+}
+
+
+/* ---------- CONTROLS ---------- */
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-top: 35px;
+}
+
+.control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.keys {
+    display: flex;
+    gap: 10px;
+}
+
+.key {
+    min-width: 46px;
+    height: 46px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0 12px;
+
+    background: linear-gradient(to bottom,
+            #fff8e5,
+            #ead9b5);
+
+    border: 2px solid #9b4d00;
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 0 #8b4800,
+        0 4px 10px rgba(0, 0, 0, .18);
+
+    color: #6d3500;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.spaceKey {
+    min-width: 120px;
+}
+
+.action {
+    color: #4a2b00;
+    font-size: 24px;
+    font-weight: 600;
+}

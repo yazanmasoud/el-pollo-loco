@@ -2,12 +2,17 @@ let canvas;
 let world;
 let music;
 let keyboard = new Keyboard();
+let fullscreenButton;
+
 
 function init() {
+    fullscreenButton = document.getElementById("fullscreen");
+
+    document.onfullscreenchange = updateFullscreenIcon;
+
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     music = new Music();
-    music.playMenuMusic();
 }
 
 function startGame() {
@@ -16,20 +21,30 @@ function startGame() {
     document.getElementById('controlsButton').style.display = 'none';
     document.getElementById('mute').style.display = 'none';
     document.getElementById('fullscreen').style.display = 'none';
-    music.playMenuMusic();
+
 }
 
 function toggleFullscreen() {
-    let gameContainer = document.getElementById('gameContainer');
-
-    if (!gameContainer.fullscreenElement) {
-        gameContainer.requestFullscreen();
-    } else {
-        if (gameContainer.exitFullscreen) {
-            gameContainer.exitFullscreen();
-        }
+    if (!document.fullscreenElement) {
+        document.getElementById('gameContainer').requestFullscreen();
+    }
+    else {
+        document.exitFullscreen();
     }
 }
+
+function updateFullscreenIcon() {
+
+    if (document.fullscreenElement) {
+        fullscreenButton.style.backgroundImage =
+            'url("../assets/img/icons/shrink.svg")';
+    } else {
+        fullscreenButton.style.backgroundImage =
+            'url("../assets/img/icons/expand.svg")';
+    }
+}
+
+
 
 function openControls() {
     document.getElementById("overlay").style.display = "flex";

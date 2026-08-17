@@ -75,9 +75,7 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.animate();
-        this.speed = this.speed;
-        console.log(this.width , this.height);
-        
+        this.speed = this.speed;        
     }
 
 

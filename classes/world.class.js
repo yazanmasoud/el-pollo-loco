@@ -30,26 +30,21 @@ class World {
 
     }
 
-    checkEnemyCollisions() {
-        setInterval(() => {
-            for (let i = 0; i < this.level.enemies.length; i++) {
-                let enemy = this.level.enemies[i];
+checkEnemyCollisions() {
+    setInterval(() => {
+        for (let i = 0; i < this.level.enemies.length; i++) {
+            let enemy = this.level.enemies[i];
 
-                if (this.character.isColliding(enemy)) {
-
-                    if (
-                        this.character.speedY < 0 &&
-                        this.character.y + this.character.height >= enemy.y &&
-                        this.character.y + this.character.height + this.character.speedY <= enemy.y
-                    ) {
-                        this.level.enemies.splice(i, 1);
-                    } else {
-                        this.character.hit(enemy.damage);
-                    }
+            if (this.character.isColliding(enemy)) {
+                if (this.character.isJumpingOnEnemy(enemy)) {
+                    this.level.enemies.splice(i, 1);
+                } else {
+                    this.character.hit(enemy.damage);
                 }
             }
-        }, 1000 / 25);
-    }
+        }
+    }, 1000 / 25);
+}
 
     checkCoinsCollisions() {
         setInterval(() => {
@@ -140,7 +135,7 @@ class World {
         if (movableObject.otherDirection) {
             this.flipImage(movableObject);
         }
-        
+
         movableObject.draw(this.ctx);
 
         if (movableObject.otherDirection) {

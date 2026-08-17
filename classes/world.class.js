@@ -143,7 +143,8 @@ class World {
 
 
         movableObject.draw(this.ctx);
-        if (movableObject instanceof Character || movableObject instanceof Chicken) {
+        if (movableObject instanceof Character || movableObject instanceof Chicken ||
+            movableObject instanceof Endboss) {
             movableObject.drawFrame(this.ctx);
         }
 

@@ -7,6 +7,13 @@ class Character extends MoveableObject {
     interval_counter = 0;
     throwPressed = false;
     currentAnimation = 'idle';
+    offset = {
+        top: 85,
+        bottom: 10,
+        left: 20,
+        right: 30
+    };
+
     IMAGES_WALKING = [
         'assets/img/2_character_pepe/2_walk/W-21.png',
         'assets/img/2_character_pepe/2_walk/W-22.png',
@@ -69,6 +76,8 @@ class Character extends MoveableObject {
         this.applyGravity();
         this.animate();
         this.speed = this.speed;
+        console.log(this.width , this.height);
+        
     }
 
 

@@ -30,21 +30,23 @@ class World {
 
     }
 
-checkEnemyCollisions() {
-    setInterval(() => {
-        for (let i = 0; i < this.level.enemies.length; i++) {
-            let enemy = this.level.enemies[i];
+    checkEnemyCollisions() {
+        setInterval(() => {
+            for (let i = 0; i < this.level.enemies.length; i++) {
+                let enemy = this.level.enemies[i];
 
-            if (this.character.isColliding(enemy)) {
-                if (this.character.isJumpingOnEnemy(enemy)) {
-                    this.level.enemies.splice(i, 1);
-                } else {
-                    this.character.hit(enemy.damage);
+                if (this.character.isColliding(enemy)) {
+                    if (this.character.isJumpingOnEnemy(enemy)) {
+                        this.level.enemies.splice(i, 1);
+                        this.character.bounce();
+                        break;
+                    } else {
+                        this.character.hit(enemy.damage);
+                    }
                 }
             }
-        }
-    }, 1000 / 25);
-}
+        }, 1000 / 25);
+    }
 
     checkCoinsCollisions() {
         setInterval(() => {
@@ -52,8 +54,6 @@ checkEnemyCollisions() {
                 if (this.character.isColliding(coin)) {
                     this.level.coins.splice(index, 1);
                     this.character.coinsAmount++;
-
-
                 }
             })
         }, 100);

@@ -85,6 +85,7 @@ class Character extends MoveableObject {
             if (this.isDead()) {
                 return;
             }
+
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_End_X) {
                 this.moveRight();
                 this.otherDirection = false;
@@ -170,8 +171,16 @@ class Character extends MoveableObject {
     }
 
     isJumpingOnEnemy(enemy) {
+        let previousBottom = this.previousY + this.height - this.offset.bottom;
+        let currentBottom = this.y + this.height - this.offset.bottom;
+        let enemyTop = enemy.y + enemy.offset.top;
+
         return this.speedY < 0 &&
-            this.y + this.height >= enemy.y &&
-            this.y + this.height + this.speedY <= enemy.y;
+            previousBottom <= enemyTop &&
+            currentBottom >= enemyTop;
+    }
+
+    bounce() {
+        this.speedY = 20;
     }
 }

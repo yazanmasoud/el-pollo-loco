@@ -3,6 +3,7 @@ class MoveableObject extends DrawableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2;
+    previousY = 0;
     energy = 100;
     dead = false;
     lastHit = 0;
@@ -32,6 +33,8 @@ class MoveableObject extends DrawableObject {
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
+                this.previousY = this.y;
+
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }

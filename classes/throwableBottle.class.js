@@ -35,7 +35,7 @@ class ThrowableBottle extends MoveableObject {
     }
 
     throw() {
-        this.speedY = 20;
+        this.speedY = -15;
 
         const bottleInterval = setInterval(() => {
             if (this.otherDirection) {

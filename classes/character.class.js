@@ -175,12 +175,12 @@ class Character extends MoveableObject {
         let currentBottom = this.y + this.height - this.offset.bottom;
         let enemyTop = enemy.y + enemy.offset.top;
 
-        return this.speedY < 0 &&
+        return this.speedY > 0 &&
             previousBottom <= enemyTop &&
             currentBottom >= enemyTop;
     }
 
     bounce() {
-        this.speedY = 20;
+        this.speedY = -20;
     }
 }

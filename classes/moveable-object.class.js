@@ -32,11 +32,10 @@ class MoveableObject extends DrawableObject {
 
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
+            if (this.isAboveGround() || this.speedY < 0) {
                 this.previousY = this.y;
-
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
+                this.y += this.speedY;
+                this.speedY += this.acceleration;
             }
         }, 1000 / 25);
     }
@@ -82,7 +81,7 @@ class MoveableObject extends DrawableObject {
     }
 
     jump() {
-        this.speedY = 30;
+        this.speedY = -30;
     }
 
     animate() {

@@ -33,25 +33,29 @@ class World {
     checkEnemyCollisions() {
         setInterval(() => {
             for (let i = 0; i < this.level.enemies.length; i++) {
-                let enemy = this.level.enemies[i];
-                if (enemy.dead) {
-                    continue;
-                }
-
-                if (this.character.isColliding(enemy)) {
-                    if (this.character.isJumpingOnEnemy(enemy)) {
-                        enemy.dead = true;
-                        this.character.bounce();
-                        enemy.playDeadAnimation();
-                        setTimeout(() => {
-                            this.level.enemies.splice(i, 1);
-                        }, 500);
-                    } else {
-                        this.character.hit(enemy.damage);
-                    }
-                }
+                this.handleEnemyCollision(this.level.enemies[i], i);
             }
         }, 1000 / 25);
+    }
+
+    handleEnemyCollision(enemy, index) {
+        if (enemy.dead || !this.character.isColliding(enemy)) return;
+
+        if (this.character.isJumpingOnEnemy(enemy)) {
+            this.killEnemy(enemy, index);
+        } else {
+            this.character.hit(enemy.damage);
+        }
+    }
+
+    killEnemy(enemy, index) {
+        enemy.dead = true;
+        enemy.playDeadAnimation();
+        this.character.bounce();
+
+        setTimeout(() => {
+            this.level.enemies.splice(index, 1);
+        }, 500);
     }
 
     checkCoinsCollisions() {

@@ -9,6 +9,9 @@ class MoveableObject extends DrawableObject {
     lastHit = 0;
     ground_Y_Position = 200;
 
+    setGroundPosition() {
+        this.y = this.ground_Y_Position - this.height;
+    }
 
     playAnimation(images, loop) {
         if (!loop) {
@@ -28,6 +31,10 @@ class MoveableObject extends DrawableObject {
             this.currentImage++;
 
         }
+    }
+
+    playDeadAnimation() {
+        this.img = this.imageCache[this.IMAGE_DEAD[0]];
     }
 
     applyGravity() {

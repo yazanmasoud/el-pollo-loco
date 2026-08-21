@@ -13,6 +13,7 @@ function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     music = new Music();
+    music.playBackgroundMusic();
 }
 
 function startGame() {

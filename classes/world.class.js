@@ -30,6 +30,15 @@ class World {
 
     }
 
+    killEnemy(enemy, index) {
+        enemy.dead = true;
+        enemy.playDeadAnimation();
+
+        setTimeout(() => {
+            this.level.enemies.splice(index, 1);
+        }, 500);
+    }
+
     checkEnemyCollisions() {
         setInterval(() => {
             for (let i = 0; i < this.level.enemies.length; i++) {
@@ -39,23 +48,39 @@ class World {
     }
 
     handleEnemyCollision(enemy, index) {
-        if (enemy.dead || !this.character.isColliding(enemy)) return;
+        if (enemy.dead) return;
 
-        if (this.character.isJumpingOnEnemy(enemy)) {
-            this.killEnemy(enemy, index);
-        } else {
-            this.character.hit(enemy.damage);
+        if (this.character.isColliding(enemy)) {
+            if (this.character.isJumpingOnEnemy(enemy)) {
+                this.killEnemy(enemy, index);
+                this.character.bounce();
+            } else {
+                this.character.hit(enemy.damage);
+            }
         }
     }
 
-    killEnemy(enemy, index) {
-        enemy.dead = true;
-        enemy.playDeadAnimation();
-        this.character.bounce();
+    checkBottleEnemyCollisions() {
+        setInterval(() => {
+            this.throwableBottles.forEach((bottle) => {
+                this.handleBottleEnemyCollision(bottle);
+            });
+        }, 1000 / 25);
+    }
 
-        setTimeout(() => {
-            this.level.enemies.splice(index, 1);
-        }, 500);
+    handleBottleEnemyCollision(bottle) {
+        if (bottle.isSplashing) { return; }
+
+        for (let i = 0; i < this.level.enemies.length; i++) {
+            let enemy = this.level.enemies[i];
+
+            if (bottle.isColliding(enemy)) {
+                bottle.isSplashing = true;
+                bottle.playSplashAnimation();
+                this.killEnemy(enemy, i);
+                break;
+            }
+        }
     }
 
     checkCoinsCollisions() {
@@ -79,30 +104,6 @@ class World {
             })
         }, 100);
     }
-
-    checkBottleEnemyCollisions() {
-        setInterval(() => {
-            this.throwableBottles.forEach((bottle) => {
-                if (bottle.isSplashing) {
-                    return;
-                }
-                for (let i = 0; i < this.level.enemies.length; i++) {
-                    let enemy = this.level.enemies[i];
-                    if (bottle.isColliding(enemy)) {
-                        bottle.isSplashing = true;
-                        bottle.playSplashAnimation();
-
-                        setTimeout(() => {
-                            this.level.enemies.splice(i, 1);
-                        }, 500);
-                        break;
-                    }
-                }
-            })
-        }, 1000 / 25);
-    }
-
-
 
     draw() {
         if (!this.gameStarted) {
@@ -129,8 +130,6 @@ class World {
             this.draw();
         });
     }
-
-
 
     setWorld() {
         this.character.world = this;

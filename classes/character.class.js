@@ -171,13 +171,13 @@ class Character extends MoveableObject {
     }
 
     isJumpingOnEnemy(enemy) {
-        let previousBottom = this.previousY + this.height - this.offset.bottom;
-        let currentBottom = this.y + this.height - this.offset.bottom;
+        let characterFeetBefor = this.previousY + this.height - this.offset.bottom;
+        let characterFeetNow = this.y + this.height - this.offset.bottom;
         let enemyTop = enemy.y + enemy.offset.top;
 
         return this.speedY > 0 &&
-            previousBottom <= enemyTop &&
-            currentBottom >= enemyTop;
+            characterFeetBefor <= enemyTop &&
+            characterFeetNow >= enemyTop;
     }
 
     bounce() {

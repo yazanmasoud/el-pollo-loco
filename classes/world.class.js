@@ -34,12 +34,18 @@ class World {
         setInterval(() => {
             for (let i = 0; i < this.level.enemies.length; i++) {
                 let enemy = this.level.enemies[i];
+                if (enemy.dead) {
+                    continue;
+                }
 
                 if (this.character.isColliding(enemy)) {
                     if (this.character.isJumpingOnEnemy(enemy)) {
-                        this.level.enemies.splice(i, 1);
+                        enemy.dead = true;
                         this.character.bounce();
-                        break;
+                        enemy.playDeadAnimation();
+                        setTimeout(() => {
+                            this.level.enemies.splice(i, 1);
+                        }, 500);
                     } else {
                         this.character.hit(enemy.damage);
                     }
@@ -81,9 +87,10 @@ class World {
                     if (bottle.isColliding(enemy)) {
                         bottle.isSplashing = true;
                         bottle.playSplashAnimation();
+
                         setTimeout(() => {
                             this.level.enemies.splice(i, 1);
-                        }, 200);
+                        }, 500);
                         break;
                     }
                 }

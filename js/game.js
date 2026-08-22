@@ -13,7 +13,6 @@ function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     music = new Music();
-    music.playBackgroundMusic();
 }
 
 function startGame() {
@@ -54,6 +53,14 @@ function openControls() {
 
 function closeControls() {
     document.getElementById("overlay").style.display = "none";
+}
+
+function openLegalNotice() {
+    document.getElementById('legalNoticeOverlay').style.display = 'flex';
+}
+
+function closeLegalNotice() {
+    document.getElementById('legalNoticeOverlay').style.display = 'none';
 }
 
 window.addEventListener('keydown', (event) => {

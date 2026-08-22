@@ -24,6 +24,7 @@
 
     <script src="./classes/chicken.class.js" defer></script>
     <script src="./classes/chickenSmall.class.js" defer></script>
+    <script src="./classes/boss.class.js" defer></script>
     <script src="./classes/cloud.class.js" defer></script>
     <script src="./classes/background-object.class.js" defer></script>
     <script src="./classes/coins.class.js" defer></script>
@@ -95,6 +96,34 @@
         <div class="gameButtons">
             <button id="mute" class="iconButton muteButton" onclick="music.controllVolume()"></button>
             <button id="fullscreen" class="iconButton fullscreen-button" onclick="toggleFullscreen()"></button>
+        </div>
+    </div>
+
+    <div class="legalNotice">
+        <button id="legalNoticeButton" onclick="openLegalNotice()">Impressum / Legal Notice</button>
+    </div>
+
+    <div id="legalNoticeOverlay" class="overlay" onclick="closeLegalNotice()">
+        <div class="controlsDialog" onclick="event.stopPropagation()">
+            <button class="closeButton" onclick="closeLegalNotice()">x</button>
+            <div class="legalContent">
+                <h3>Information according to Section 5 DDG</h3>
+
+                <p>
+                    Yazan Masoud<br>
+                    Fritz Erler Straße<br>
+                    12121 Berlin<br>
+                    Germany
+                </p>
+
+                <h3>Contact</h3>
+                <p>
+                    Telefon: 017657990714
+                </p>
+                <p>
+                    Email: yazanmas@gmail.com
+                </p>
+            </div>
         </div>
     </div>
 </body>

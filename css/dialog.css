@@ -141,3 +141,43 @@
     font-size: 24px;
     font-weight: 600;
 }
+
+.legalNotice {
+    margin-top: 10px;
+}
+
+.legalNotice button {
+    border: none;
+    background: transparent;
+
+    color: #6d3500;
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    text-decoration: underline;
+
+    transition:
+        transform .18s ease,
+        filter .18s ease;
+}
+
+.legalNotice button:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.legalContent {
+    color: #4a2b00;
+    font-size: 16px;
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+.legalContent h3 {
+    margin: 18px 0 8px;
+
+    color: #6d3500;
+}

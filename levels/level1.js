@@ -11,6 +11,7 @@ const level1 = new Level(
         new ChickenSmall(),
         new ChickenSmall(),
         new ChickenSmall(),
+        new Boss(),
     ],
     [
         new Cloud(),

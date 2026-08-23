@@ -2,7 +2,7 @@ class Boss extends MoveableObject {
     width = 250;
     height = 350;
     energy = 100;
-    x = 2000;
+    x = 5000;
     ground_Y_Position = 470;
 
     IMAGES_WALKING = [

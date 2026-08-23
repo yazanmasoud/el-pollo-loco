@@ -5,7 +5,8 @@ class World {
     coinsStatusBar = new CoinsStatusBar();
     bottleStatusBar = new BottleStatusBar();
     startScreen = new StartScreen();
-
+    boss;
+    bossStarted = false;
     throwableBottles = [];
     ctx;
     camera_x = 0;
@@ -26,8 +27,7 @@ class World {
         this.checkBottleCollisions();
         this.checkBottleEnemyCollisions();
         this.removeBrokenBottles();
-
-
+        this.checkLevelEnd();
     }
 
     killEnemy(enemy, index) {
@@ -41,6 +41,8 @@ class World {
 
     checkEnemyCollisions() {
         setInterval(() => {
+            console.log(this.character.x);
+            
             for (let i = 0; i < this.level.enemies.length; i++) {
                 this.handleEnemyCollision(this.level.enemies[i], i);
             }
@@ -105,6 +107,15 @@ class World {
         }, 100);
     }
 
+    checkLevelEnd() {
+        setInterval(() => {
+            if (this.character.x >= this.level.level_End_X && !this.bossStarted) {
+                this.bossStarted = true;
+                this.boss = new Boss();
+            }
+        }, 100);
+    }
+
     draw() {
         if (!this.gameStarted) {
             this.addToMap(this.startScreen);
@@ -113,6 +124,9 @@ class World {
             this.ctx.translate(this.camera_x, 0);
             this.addObjectsToMap(this.level.backgroundObjects);
             this.addObjectsToMap(this.level.enemies);
+            if (this.boss) {
+                this.addToMap(this.boss);
+            }
             this.addObjectsToMap(this.level.clouds);
             this.addObjectsToMap(this.level.coins);
             this.addObjectsToMap(this.level.bottle);

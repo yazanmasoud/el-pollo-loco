@@ -6,6 +6,7 @@ class World {
     bottleStatusBar = new BottleStatusBar();
     startScreen = new StartScreen();
     boss;
+    bossIntro;
     bossStarted = false;
     throwableBottles = [];
     ctx;
@@ -20,6 +21,7 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.character.world = this;
+        this.bossIntro = new BossIntro(this);
         this.draw();
         this.setWorld();
         this.checkEnemyCollisions();
@@ -41,7 +43,6 @@ class World {
 
     checkEnemyCollisions() {
         setInterval(() => {
-            console.log(this.character.x);
             
             for (let i = 0; i < this.level.enemies.length; i++) {
                 this.handleEnemyCollision(this.level.enemies[i], i);
@@ -111,6 +112,7 @@ class World {
         setInterval(() => {
             if (this.character.x >= this.level.level_End_X && !this.bossStarted) {
                 this.bossStarted = true;
+                this.bossIntro.start();
                 this.boss = new Boss();
             }
         }, 100);

@@ -6,6 +6,7 @@ class Character extends MoveableObject {
     bottleAmount = 0;
     interval_counter = 0;
     throwPressed = false;
+    canMove = true;
     currentAnimation = 'idle';
     offset = {
         top: 85,
@@ -87,21 +88,21 @@ class Character extends MoveableObject {
                 return;
             }
 
-            if (this.world.keyboard.RIGHT) {
+            if (this.world.keyboard.RIGHT && this.canMove) {
                 this.moveRight();
                 this.otherDirection = false;
             }
-            if (this.world.keyboard.LEFT && this.x > 0) {
+            if (this.world.keyboard.LEFT && this.x > 0 && this.canMove) {
                 this.moveLeft();
                 this.otherDirection = true;
             }
             this.world.camera_x = -this.x + 100;
 
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            if (this.world.keyboard.SPACE && !this.isAboveGround() && this.canMove) {
                 this.jump();
             }
 
-            if (this.world.keyboard.D && this.bottleAmount > 0 && !this.throwPressed) {
+            if (this.world.keyboard.D && this.bottleAmount > 0 && !this.throwPressed && this.canMove) {
                 this.throwBottle();
                 this.throwPressed = true;
             }
@@ -140,7 +141,7 @@ class Character extends MoveableObject {
                 this.playAnimation(this.IMAGES_JUMP, true);
             }
 
-            else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            else if (this.canMove && (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)) {
                 if (this.currentAnimation !== 'walking') {
                     this.currentAnimation = 'walking';
                     this.currentImage = 0;

@@ -111,9 +111,10 @@ class World {
     checkLevelEnd() {
         setInterval(() => {
             if (this.character.x >= this.level.level_End_X && !this.bossStarted) {
+                this.boss = new Boss();
                 this.bossStarted = true;
                 this.bossIntro.start();
-                this.boss = new Boss();
+                
             }
         }, 100);
     }

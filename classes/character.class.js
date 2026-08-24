@@ -96,7 +96,9 @@ class Character extends MoveableObject {
                 this.moveLeft();
                 this.otherDirection = true;
             }
-            this.world.camera_x = -this.x + 100;
+            if (!this.world.bossIntro.active) {
+                this.world.camera_x = -this.x + 100;
+            }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround() && this.canMove) {
                 this.jump();

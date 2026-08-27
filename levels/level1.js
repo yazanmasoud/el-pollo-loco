@@ -71,14 +71,21 @@ const level1 = new Level(
         new BackgroundObject('assets/img/5_background/layers/air.png', 720 * 7),
         new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 720 * 7),
         new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 720 * 7),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 720 * 7)
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 720 * 7),
+
+        new BackgroundObject('assets/img/5_background/layers/air.png', 720 * 8),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 720 * 8),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 720 * 8),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 720 * 8) 
     ]
+
     , [
         new Coins(300, 350),
         new Coins(500, 280),
         new Coins(900, 350),
         new Coins(1300, 250)
     ]
+    
     , [
         new Bottle(400, 365),
         new Bottle(700, 365),

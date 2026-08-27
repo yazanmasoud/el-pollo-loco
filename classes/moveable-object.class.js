@@ -14,22 +14,15 @@ class MoveableObject extends DrawableObject {
     }
 
     playAnimation(images, loop) {
-        if (!loop) {
-            if (this.currentImage < images.length) {
-                let index = this.currentImage;
-                let path = images[index];
-                this.img = this.imageCache[path];
-                if (this.currentImage === images.length - 1) {
-                    return;
-                }
-                this.currentImage++;
-            }
-        } else {
-            let index = this.currentImage % images.length;
-            let path = images[index];
-            this.img = this.imageCache[path];
-            this.currentImage++;
+        let index = loop
+            ? this.currentImage % images.length
+            : Math.min(this.currentImage, images.length - 1);
 
+        let path = images[index];
+        this.img = this.imageCache[path];
+
+        if (loop || this.currentImage < images.length - 1) {
+            this.currentImage++;
         }
     }
 

@@ -59,11 +59,16 @@ class Boss extends MoveableObject {
         this.img = this.imageCache[this.IMAGES_WALKING[0]];
     }
 
-    playAlertAnimation() {
+    playAlertAnimation(callback) {
         this.currentImage = 0;
 
-        setInterval(() => {
+        let animationInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_ALERT, false);
+
+            if (this.currentImage === this.IMAGES_ALERT.length - 1) {
+                clearInterval(animationInterval);
+                callback();
+            }
         }, 200);
     }
 }

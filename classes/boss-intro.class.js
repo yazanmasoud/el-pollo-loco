@@ -47,6 +47,7 @@ class BossIntro {
         this.phase = 'finished';
         this.active = false;
         this.world.character.canMove = true;
+        this.world.boss.fightStarted = true;
     }
 
     playBossAlert() {

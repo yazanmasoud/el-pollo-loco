@@ -4,6 +4,9 @@ class Boss extends MoveableObject {
     energy = 100;
     x = 5000;
     ground_Y_Position = 470;
+    fightStarted = false;
+    speed = 0.5;
+
 
     IMAGES_WALKING = [
         'assets/img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -57,6 +60,22 @@ class Boss extends MoveableObject {
         this.loadImages(this.IMAGES_DEAD);
 
         this.img = this.imageCache[this.IMAGES_WALKING[0]];
+
+        this.animate();
+    }
+
+    animate() {
+        setInterval(() => {
+            if (this.fightStarted) {
+                this.moveLeft();
+            }
+        }, 1000 / 60);
+
+        setInterval(() => {
+            if (this.fightStarted) {
+                this.playAnimation(this.IMAGES_WALKING, true);
+            }
+        }, 150);
     }
 
     playAlertAnimation(callback) {

@@ -18,28 +18,35 @@ class BossIntro {
 
     moveCamera() {
         if (this.phase === 'cameraToBoss') {
-
-            if (this.world.camera_x > this.startCameraX - 500) {
-                this.world.camera_x -= 2;
-
-            } else {
-                this.phase = 'bossAlert';
-                this.playBossAlert();
-            }
+            this.moveCameraToBoss();
         }
 
         if (this.phase === 'cameraBack') {
-
-            if (this.world.camera_x < this.startCameraX) {
-                this.world.camera_x += 2;
-
-            } else {
-                this.phase = 'finished';
-                this.active = false;
-                this.world.character.canMove = true;
-
-            }
+            this.moveCameraBack();
         }
+    }
+
+    moveCameraToBoss() {
+        if (this.world.camera_x > this.startCameraX - 500) {
+            this.world.camera_x -= 2;
+        } else {
+            this.phase = 'bossAlert';
+            this.playBossAlert();
+        }
+    }
+
+    moveCameraBack() {
+        if (this.world.camera_x < this.startCameraX) {
+            this.world.camera_x += 2;
+        } else {
+            this.finishIntro();
+        }
+    }
+
+    finishIntro() {
+        this.phase = 'finished';
+        this.active = false;
+        this.world.character.canMove = true;
     }
 
     playBossAlert() {

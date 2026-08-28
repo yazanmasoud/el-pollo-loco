@@ -5,6 +5,7 @@ class Boss extends MoveableObject {
     x = 5000;
     ground_Y_Position = 470;
     fightStarted = false;
+    currentAnimation = 'alert';
     speed = 0.5;
 
 
@@ -64,6 +65,16 @@ class Boss extends MoveableObject {
         this.animate();
     }
 
+    handelBossAnimation() {
+        if (this.currentAnimation === 'alert') {
+            this.playAnimation(this.IMAGES_ALERT, true);
+        }
+
+        if (this.currentAnimation === 'walking') {
+            this.playAnimation(this.IMAGES_WALKING, true);
+        }
+    }
+
     animate() {
         setInterval(() => {
             if (this.fightStarted) {
@@ -72,22 +83,7 @@ class Boss extends MoveableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.fightStarted) {
-                this.playAnimation(this.IMAGES_WALKING, true);
-            }
+            this.handelBossAnimation();
         }, 150);
-    }
-
-    playAlertAnimation(callback) {
-        this.currentImage = 0;
-
-        let animationInterval = setInterval(() => {
-            this.playAnimation(this.IMAGES_ALERT, false);
-
-            if (this.currentImage === this.IMAGES_ALERT.length - 1) {
-                clearInterval(animationInterval);
-                callback();
-            }
-        }, 200);
     }
 }

@@ -87,20 +87,20 @@ const level1 = new Level(
     ]
     
     , [
-        new Bottle(400, 365),
-        new Bottle(700, 365),
-        new Bottle(1100, 365),
-        new Bottle(1500, 365),
-        new Bottle(1250, 365),
-        new Bottle(1650, 365),
-        new Bottle(2050, 365),
-        new Bottle(2450, 365),
-        new Bottle(2850, 365),
-        new Bottle(3250, 365),
-        new Bottle(3650, 365),
-        new Bottle(4050, 365),
-        new Bottle(4450, 365),
-        new Bottle(4850, 365)
+        new Bottle(400, 380),
+        new Bottle(700, 380),
+        new Bottle(1100, 380),
+        new Bottle(1500, 380),
+        new Bottle(1250, 380),
+        new Bottle(1650, 380),
+        new Bottle(2050, 380),
+        new Bottle(2450, 380),
+        new Bottle(2850, 380),
+        new Bottle(3250, 380),
+        new Bottle(3650, 380),
+        new Bottle(4050, 380),
+        new Bottle(4450, 380),
+        new Bottle(4850, 380)
 
     ]
 );

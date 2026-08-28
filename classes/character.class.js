@@ -1,6 +1,5 @@
 class Character extends MoveableObject {
     x = 50;
-    y = 200;
     speed = 5;
     coinsAmount = 0;
     bottleAmount = 0;
@@ -175,12 +174,16 @@ class Character extends MoveableObject {
     }
 
     isJumpingOnEnemy(enemy) {
-        let characterFeetBefor = this.previousY + this.height - this.offset.bottom;
-        let characterFeetNow = this.y + this.height - this.offset.bottom;
-        let enemyTop = enemy.y + enemy.offset.top;
+        const characterFeetBefore =
+            this.previousY + this.height - this.offset.bottom;
 
-        return this.speedY > 0 &&
-            characterFeetBefor <= enemyTop &&
+        const characterFeetNow =
+            this.y + this.height - this.offset.bottom;
+
+        const enemyTop =
+            enemy.y + enemy.offset.top;
+
+        return characterFeetBefore <= enemyTop &&
             characterFeetNow >= enemyTop;
     }
 

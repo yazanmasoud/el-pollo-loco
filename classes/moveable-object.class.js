@@ -7,7 +7,7 @@ class MoveableObject extends DrawableObject {
     energy = 100;
     dead = false;
     lastHit = 0;
-    ground_Y_Position = 200;
+    ground_Y_Position = 430;
 
     setGroundPosition() {
         this.y = this.ground_Y_Position - this.height;
@@ -36,6 +36,11 @@ class MoveableObject extends DrawableObject {
                 this.previousY = this.y;
                 this.y += this.speedY;
                 this.speedY += this.acceleration;
+
+                if (this.y + this.height >= this.ground_Y_Position) {
+                    this.y = this.ground_Y_Position - this.height;
+                    this.speedY = 0;
+                }
             }
         }, 1000 / 25);
     }
@@ -69,7 +74,7 @@ class MoveableObject extends DrawableObject {
         }
     }
     isAboveGround() {
-        return this.y < this.ground_Y_Position
+        return this.y + this.height < this.ground_Y_Position
     }
 
     moveRight() {

@@ -3,7 +3,6 @@ class Boss extends MoveableObject {
     height = 350;
     energy = 100;
     x = 5000;
-    ground_Y_Position = 470;
     fightStarted = false;
     currentAnimation = 'alert';
     speed = 0.5;

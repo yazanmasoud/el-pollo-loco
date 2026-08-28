@@ -31,7 +31,6 @@ class ThrowableBottle extends MoveableObject {
         this.height = 60;
         this.speed = 20;
         this.applyGravity();
-        this.ground_Y_Position = 360;
     }
 
     throw() {
@@ -45,7 +44,7 @@ class ThrowableBottle extends MoveableObject {
             }
 
             this.playAnimation(this.IMAGES_ROTATION, true);
-            if (this.y >= this.ground_Y_Position) {
+            if (this.y + this.height >= this.ground_Y_Position) {
                 clearInterval(bottleInterval);
                 this.currentImage = 0;
                 this.playSplashAnimation();

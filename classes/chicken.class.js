@@ -3,7 +3,6 @@ class Chicken extends MoveableObject {
     width = 80;
     height = 80;
     damage = 0.5;
-    ground_Y_Position = 430;
     offset = {
         top: 10,
         bottom: 10,

@@ -1,3 +1,10 @@
+/**
+ * Represents the playable character of the game.
+ * Handles player movement, animations, jumping, bottle throwing,
+ * enemy interactions, and camera movement.
+ *
+ * @extends MoveableObject
+ */
 class Character extends MoveableObject {
     x = 50;
     speed = 5;
@@ -7,6 +14,7 @@ class Character extends MoveableObject {
     throwPressed = false;
     canMove = true;
     currentAnimation = 'idle';
+
     offset = {
         top: 85,
         bottom: 10,
@@ -34,7 +42,7 @@ class Character extends MoveableObject {
         'assets/img/2_character_pepe/1_idle/idle/I-8.png',
         'assets/img/2_character_pepe/1_idle/idle/I-9.png',
         'assets/img/2_character_pepe/1_idle/idle/I-10.png'
-    ]
+    ];
 
     IMAGES_JUMP = [
         'assets/img/2_character_pepe/3_jump/J-31.png',
@@ -46,7 +54,7 @@ class Character extends MoveableObject {
         'assets/img/2_character_pepe/3_jump/J-37.png',
         'assets/img/2_character_pepe/3_jump/J-38.png',
         'assets/img/2_character_pepe/3_jump/J-39.png',
-    ]
+    ];
 
     IMAGES_DEAD = [
         'assets/img/2_character_pepe/5_dead/D-51.png',
@@ -56,15 +64,18 @@ class Character extends MoveableObject {
         'assets/img/2_character_pepe/5_dead/D-55.png',
         'assets/img/2_character_pepe/5_dead/D-56.png',
         'assets/img/2_character_pepe/5_dead/D-57.png',
-    ]
+    ];
 
     IMAGES_HURT = [
         'assets/img/2_character_pepe/4_hurt/H-41.png',
         'assets/img/2_character_pepe/4_hurt/H-42.png',
         'assets/img/2_character_pepe/4_hurt/H-43.png',
-    ]
+    ];
 
-
+    /**
+     * Creates a new character instance and initializes its images,
+     * gravity, position, and animations.
+     */
     constructor() {
         super();
         this.setGroundPosition();
@@ -79,9 +90,10 @@ class Character extends MoveableObject {
         this.speed = this.speed;
     }
 
-
+    /**
+     * Starts the character's movement controls and animation handling.
+     */
     animate() {
-
         setInterval(() => {
             if (this.isDead()) {
                 return;
@@ -91,10 +103,12 @@ class Character extends MoveableObject {
                 this.moveRight();
                 this.otherDirection = false;
             }
+
             if (this.world.keyboard.LEFT && this.x > 0 && this.canMove) {
                 this.moveLeft();
                 this.otherDirection = true;
             }
+
             if (!this.world.bossIntro.active) {
                 this.world.camera_x = -this.x + 100;
             }
@@ -114,7 +128,6 @@ class Character extends MoveableObject {
 
         }, 1000 / 60);
 
-
         setInterval(() => {
             this.interval_counter++;
 
@@ -123,6 +136,7 @@ class Character extends MoveableObject {
                     this.currentAnimation = 'hurt';
                     this.currentImage = 0;
                 }
+
                 this.playAnimation(this.IMAGES_HURT, true);
             }
 
@@ -131,6 +145,7 @@ class Character extends MoveableObject {
                     this.currentAnimation = 'dead';
                     this.currentImage = 0;
                 }
+
                 this.playAnimation(this.IMAGES_DEAD, false);
             }
 
@@ -139,6 +154,7 @@ class Character extends MoveableObject {
                     this.currentAnimation = 'jump';
                     this.currentImage = 0;
                 }
+
                 this.playAnimation(this.IMAGES_JUMP, true);
             }
 
@@ -155,24 +171,40 @@ class Character extends MoveableObject {
                     this.currentAnimation = 'idle';
                     this.currentImage = 0;
                 }
+
                 this.playAnimation(this.IMAGES_IDLE, true);
             }
 
         }, 100);
     }
 
-
+    /**
+     * Creates and throws a bottle in the direction the character is facing.
+     * Decreases the number of available bottles after throwing.
+     */
     throwBottle() {
         let offset = this.otherDirection ? -50 : 100;
-        let bottle = new ThrowableBottle(this.x + offset, this.y + 100, this.otherDirection);
+        let bottle = new ThrowableBottle(
+            this.x + offset,
+            this.y + 100,
+            this.otherDirection
+        );
+
         if (this.otherDirection) {
             bottle.x = this.x - 50;
         }
+
         this.world.throwableBottles.push(bottle);
         bottle.throw();
         this.bottleAmount--;
     }
 
+    /**
+     * Checks whether the character jumped onto an enemy from above.
+     *
+     * @param {MoveableObject} enemy - The enemy to check.
+     * @returns {boolean} True if the character landed on the enemy from above.
+     */
     isJumpingOnEnemy(enemy) {
         const characterFeetBefore =
             this.previousY + this.height - this.offset.bottom;
@@ -187,6 +219,9 @@ class Character extends MoveableObject {
             characterFeetNow >= enemyTop;
     }
 
+    /**
+     * Makes the character bounce upward after jumping on an enemy.
+     */
     bounce() {
         this.speedY = -20;
     }

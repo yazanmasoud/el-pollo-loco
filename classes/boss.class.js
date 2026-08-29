@@ -1,3 +1,9 @@
+/**
+ * Represents the final boss enemy of the game.
+ * Handles the boss's movement and animations during the fight.
+ *
+ * @extends MoveableObject
+ */
 class Boss extends MoveableObject {
     width = 250;
     height = 350;
@@ -7,13 +13,11 @@ class Boss extends MoveableObject {
     currentAnimation = 'alert';
     speed = 0.5;
 
-
     IMAGES_WALKING = [
         'assets/img/4_enemie_boss_chicken/1_walk/G1.png',
         'assets/img/4_enemie_boss_chicken/1_walk/G2.png',
         'assets/img/4_enemie_boss_chicken/1_walk/G3.png',
         'assets/img/4_enemie_boss_chicken/1_walk/G4.png',
-
     ];
 
     IMAGES_ALERT = [
@@ -50,6 +54,9 @@ class Boss extends MoveableObject {
         'assets/img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
 
+    /**
+     * Creates a new boss instance and loads all required images.
+     */
     constructor() {
         super();
         this.setGroundPosition();
@@ -64,6 +71,9 @@ class Boss extends MoveableObject {
         this.animate();
     }
 
+    /**
+     * Handles the boss animation depending on its current state.
+     */
     handelBossAnimation() {
         if (this.currentAnimation === 'alert') {
             this.playAnimation(this.IMAGES_ALERT, true);
@@ -74,6 +84,9 @@ class Boss extends MoveableObject {
         }
     }
 
+    /**
+     * Starts the boss movement and animation intervals.
+     */
     animate() {
         setInterval(() => {
             if (this.fightStarted) {

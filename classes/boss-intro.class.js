@@ -1,10 +1,25 @@
+/**
+ * Controls the introduction sequence of the boss fight.
+ * Handles the camera movement, boss alert animation,
+ * and the start of the boss fight.
+ */
 class BossIntro {
     active = false;
     phase = 'cameraToBoss';
 
+    /**
+     * Creates a new boss intro controller.
+     *
+     * @param {World} world - The game world containing the character, camera, and boss.
+     */
     constructor(world) {
         this.world = world;
     }
+
+    /**
+     * Starts the boss introduction sequence.
+     * Disables character movement and begins moving the camera toward the boss.
+     */
     start() {
         this.active = true;
         this.phase = 'cameraToBoss';
@@ -16,6 +31,9 @@ class BossIntro {
         }, 1000 / 60);
     }
 
+    /**
+     * Controls the camera movement depending on the current intro phase.
+     */
     moveCamera() {
         if (this.phase === 'cameraToBoss') {
             this.moveCameraToBoss();
@@ -26,6 +44,10 @@ class BossIntro {
         }
     }
 
+    /**
+     * Moves the camera toward the boss.
+     * Starts the boss alert phase when the camera reaches its target position.
+     */
     moveCameraToBoss() {
         if (this.world.camera_x > this.startCameraX - 500) {
             this.world.camera_x -= 3;
@@ -35,6 +57,10 @@ class BossIntro {
         }
     }
 
+    /**
+     * Moves the camera back to its original position.
+     * Finishes the intro sequence when the camera reaches its starting position.
+     */
     moveCameraBack() {
         if (this.world.camera_x < this.startCameraX) {
             this.world.camera_x += 4;
@@ -43,6 +69,10 @@ class BossIntro {
         }
     }
 
+    /**
+     * Finishes the boss introduction sequence.
+     * Enables character movement and starts the boss fight.
+     */
     finishIntro() {
         this.phase = 'finished';
         this.active = false;
@@ -51,6 +81,9 @@ class BossIntro {
         this.world.boss.currentAnimation = 'walking';
     }
 
+    /**
+     * Plays the boss alert phase before moving the camera back to the character.
+     */
     playBossAlert() {
         this.world.boss.currentAnimation = 'alert';
 

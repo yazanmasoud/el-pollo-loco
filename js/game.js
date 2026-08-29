@@ -5,6 +5,11 @@ let keyboard = new Keyboard();
 let fullscreenButton;
 
 
+/**
+ * Initializes the game.
+ * Sets up the canvas, world, music, fullscreen functionality,
+ * and required DOM elements.
+ */
 function init() {
     fullscreenButton = document.getElementById("fullscreen");
 
@@ -15,26 +20,36 @@ function init() {
     music = new Music();
 }
 
+
+/**
+ * Starts the game and hides the start screen controls.
+ */
 function startGame() {
     world.gameStarted = true;
     document.getElementById('startButton').style.display = 'none';
     document.getElementById('controlsButton').style.display = 'none';
     document.getElementById('mute').style.display = 'none';
     document.getElementById('fullscreen').style.display = 'none';
-
 }
 
+
+/**
+ * Toggles fullscreen mode for the game container.
+ * Enters fullscreen mode if it is inactive and exits it if active.
+ */
 function toggleFullscreen() {
     if (!document.fullscreenElement) {
         document.getElementById('gameContainer').requestFullscreen();
-    }
-    else {
+    } else {
         document.exitFullscreen();
     }
 }
 
-function updateFullscreenIcon() {
 
+/**
+ * Updates the fullscreen button icon depending on the current fullscreen state.
+ */
+function updateFullscreenIcon() {
     if (document.fullscreenElement) {
         fullscreenButton.style.backgroundImage =
             'url("../assets/img/icons/shrink.svg")';
@@ -45,24 +60,42 @@ function updateFullscreenIcon() {
 }
 
 
-
+/**
+ * Opens the controls overlay.
+ */
 function openControls() {
     document.getElementById("overlay").style.display = "flex";
-
 }
 
+
+/**
+ * Closes the controls overlay.
+ */
 function closeControls() {
     document.getElementById("overlay").style.display = "none";
 }
 
+
+/**
+ * Opens the legal notice overlay.
+ */
 function openLegalNotice() {
     document.getElementById('legalNoticeOverlay').style.display = 'flex';
 }
 
+
+/**
+ * Closes the legal notice overlay.
+ */
 function closeLegalNotice() {
     document.getElementById('legalNoticeOverlay').style.display = 'none';
 }
 
+
+/**
+ * Listens for keyboard key presses and updates the corresponding
+ * keyboard control states.
+ */
 window.addEventListener('keydown', (event) => {
 
     if (event.code == 'ArrowLeft') {
@@ -75,17 +108,22 @@ window.addEventListener('keydown', (event) => {
 
     if (event.code == 'ArrowUp') {
         keyboard.UP = true;
-
     }
+
     if (event.code == 'Space') {
         keyboard.SPACE = true;
-
     }
+
     if (event.code == 'KeyD') {
         keyboard.D = true;
     }
 });
 
+
+/**
+ * Listens for keyboard key releases and resets the corresponding
+ * keyboard control states.
+ */
 window.addEventListener('keyup', (event) => {
 
     if (event.code == 'ArrowLeft') {
@@ -98,12 +136,12 @@ window.addEventListener('keyup', (event) => {
 
     if (event.code == 'ArrowUp') {
         keyboard.UP = false;
-
     }
+
     if (event.code == 'Space') {
         keyboard.SPACE = false;
-
     }
+
     if (event.code == 'KeyD') {
         keyboard.D = false;
     }

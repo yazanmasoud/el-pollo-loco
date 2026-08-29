@@ -1,3 +1,9 @@
+/**
+ * Represents a throwable bottle that can rotate while flying
+ * and splash when it hits the ground or an enemy.
+ *
+ * @extends MoveableObject
+ */
 class ThrowableBottle extends MoveableObject {
 
     isBroken = false;
@@ -19,6 +25,13 @@ class ThrowableBottle extends MoveableObject {
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ];
 
+    /**
+     * Creates a new throwable bottle at the specified position.
+     *
+     * @param {number} x - The starting x-coordinate of the bottle.
+     * @param {number} y - The starting y-coordinate of the bottle.
+     * @param {boolean} otherDirection - Determines whether the bottle is thrown to the left.
+     */
     constructor(x, y, otherDirection) {
         super();
         this.x = x;
@@ -33,6 +46,11 @@ class ThrowableBottle extends MoveableObject {
         this.applyGravity();
     }
 
+    /**
+     * Throws the bottle in the direction the character is facing.
+     * The bottle rotates while flying and starts the splash animation
+     * when it reaches the ground.
+     */
     throw() {
         this.speedY = -15;
 
@@ -44,26 +62,30 @@ class ThrowableBottle extends MoveableObject {
             }
 
             this.playAnimation(this.IMAGES_ROTATION, true);
+
             if (this.y + this.height >= this.ground_Y_Position) {
                 clearInterval(bottleInterval);
                 this.currentImage = 0;
                 this.playSplashAnimation();
             }
         }, 1000 / 25);
-
     }
 
+    /**
+     * Plays the splash animation after the bottle breaks.
+     * Marks the bottle as broken after the animation has finished.
+     */
     playSplashAnimation() {
         const splashInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_SPLASH, false);
+
             if (this.currentImage === this.IMAGES_SPLASH.length - 1) {
                 clearInterval(splashInterval);
+
                 setTimeout(() => {
                     this.isBroken = true;
                 }, 200);
             }
         }, 1000 / 25);
     }
-
-
 }

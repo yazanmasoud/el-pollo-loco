@@ -1,3 +1,9 @@
+/**
+ * Creates the first game level with enemies, clouds, background objects,
+ * coins, and collectible bottles.
+ *
+ * @type {Level}
+ */
 const level1 = new Level(
     [
         new Chicken(),
@@ -57,7 +63,7 @@ const level1 = new Level(
         new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 720 * 4),
         new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 720 * 4),
         new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 720 * 4),
-        
+
         new BackgroundObject('assets/img/5_background/layers/air.png', 720 * 5),
         new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 720 * 5),
         new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 720 * 5),
@@ -76,17 +82,17 @@ const level1 = new Level(
         new BackgroundObject('assets/img/5_background/layers/air.png', 720 * 8),
         new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 720 * 8),
         new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 720 * 8),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 720 * 8) 
-    ]
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 720 * 8)
+    ],
 
-    , [
+    [
         new Coins(300, 350),
         new Coins(500, 280),
         new Coins(900, 350),
         new Coins(1300, 250)
-    ]
-    
-    , [
+    ],
+
+    [
         new Bottle(400, 380),
         new Bottle(700, 380),
         new Bottle(1100, 380),
@@ -101,6 +107,5 @@ const level1 = new Level(
         new Bottle(4050, 380),
         new Bottle(4450, 380),
         new Bottle(4850, 380)
-
     ]
 );

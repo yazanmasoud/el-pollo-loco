@@ -1,14 +1,23 @@
+/**
+ * Represents a small chicken enemy in the game.
+ * The chicken moves continuously to the left and plays
+ * a walking animation until it is defeated.
+ *
+ * @extends MoveableObject
+ */
 class ChickenSmall extends MoveableObject {
     width = 50;
     height = 50;
     damage = 0.5;
     ground_Y_Position = 430;
+
     offset = {
         top: 10,
         bottom: 10,
         left: 5,
         right: 10
     };
+
     IMAGES_WALKING = [
         'assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
         'assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
@@ -19,6 +28,10 @@ class ChickenSmall extends MoveableObject {
         'assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png'
     ];
 
+    /**
+     * Creates a new small chicken with a random position
+     * and movement speed.
+     */
     constructor() {
         super();
         this.setGroundPosition();
@@ -30,6 +43,10 @@ class ChickenSmall extends MoveableObject {
         this.animate();
     }
 
+    /**
+     * Starts the movement and walking animation of the chicken.
+     * Both stop when the chicken is defeated.
+     */
     animate() {
         setInterval(() => {
             if (!this.dead) {
@@ -43,5 +60,4 @@ class ChickenSmall extends MoveableObject {
             }
         }, 200);
     }
-
 }

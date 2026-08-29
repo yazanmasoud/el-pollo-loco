@@ -143,9 +143,9 @@ class World {
      */
     checkBottleCollisions() {
         setInterval(() => {
-            this.level.bottle.forEach((bottle, index) => {
+            this.level.bottles.forEach((bottle, index) => {
                 if (this.character.isColliding(bottle)) {
-                    this.level.bottle.splice(index, 1);
+                    this.level.bottles.splice(index, 1);
                     this.character.bottleAmount++;
                 }
             });
@@ -187,7 +187,7 @@ class World {
 
             this.addObjectsToMap(this.level.clouds);
             this.addObjectsToMap(this.level.coins);
-            this.addObjectsToMap(this.level.bottle);
+            this.addObjectsToMap(this.level.bottles);
             this.addObjectsToMap(this.throwableBottles);
             this.addToMap(this.character);
 

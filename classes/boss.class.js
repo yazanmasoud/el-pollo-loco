@@ -74,7 +74,7 @@ class Boss extends MoveableObject {
     /**
      * Handles the boss animation depending on its current state.
      */
-    handelBossAnimation() {
+    handleBossAnimation() {
         if (this.currentAnimation === 'alert') {
             this.playAnimation(this.IMAGES_ALERT, true);
         }
@@ -95,7 +95,7 @@ class Boss extends MoveableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-            this.handelBossAnimation();
+            this.handleBossAnimation();
         }, 150);
     }
 }

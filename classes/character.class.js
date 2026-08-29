@@ -87,7 +87,6 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.animate();
-        this.speed = this.speed;
     }
 
     /**
@@ -184,18 +183,18 @@ class Character extends MoveableObject {
      */
     throwBottle() {
         let offset = this.otherDirection ? -50 : 100;
-        let bottle = new ThrowableBottle(
+        let thrownBottle = new ThrowableBottle(
             this.x + offset,
             this.y + 100,
             this.otherDirection
         );
 
         if (this.otherDirection) {
-            bottle.x = this.x - 50;
+            thrownBottle.x = this.x - 50;
         }
 
-        this.world.throwableBottles.push(bottle);
-        bottle.throw();
+        this.world.throwableBottles.push(thrownBottle);
+        thrownBottle.throw();
         this.bottleAmount--;
     }
 

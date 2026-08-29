@@ -26,7 +26,7 @@ class Music {
      * Changes the volume level between high, low, and muted.
      * Updates the volume button icon accordingly.
      */
-    controllVolume() {
+    controlVolume() {
         if (this.volumeState === 2) {
             this.muteButton.style.backgroundImage =
                 'url("assets/img/icons/volume-low.svg")';

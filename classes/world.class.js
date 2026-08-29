@@ -10,8 +10,11 @@ class World {
     coinsStatusBar = new CoinsStatusBar();
     bottleStatusBar = new BottleStatusBar();
     startScreen = new StartScreen();
+
     boss;
     bossIntro;
+    bossStatusBar;
+
     bossStarted = false;
     throwableBottles = [];
     ctx;
@@ -160,6 +163,7 @@ class World {
         setInterval(() => {
             if (this.character.x >= this.level.level_End_X && !this.bossStarted) {
                 this.boss = new Boss();
+                this.bossStatusBar = new BossStatusBar();
                 this.bossStarted = true;
                 this.bossIntro.start();
             }
@@ -200,6 +204,9 @@ class World {
             this.addToMap(this.healthStatusBar);
             this.addToMap(this.coinsStatusBar);
             this.addToMap(this.bottleStatusBar);
+            if (this.bossStatusBar) {
+                this.addToMap(this.bossStatusBar);
+            }
         }
 
         requestAnimationFrame(() => {

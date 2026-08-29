@@ -11,6 +11,8 @@ class Boss extends MoveableObject {
     x = 5000;
     fightStarted = false;
     currentAnimation = 'alert';
+    deadAnimationFinished = false;
+    deadAnimationEnding = false;
     speed = 0.5;
 
     IMAGES_WALKING = [
@@ -76,16 +78,48 @@ class Boss extends MoveableObject {
      */
     handleBossAnimation() {
         if (this.isDead()) {
+            if (this.currentAnimation !== 'dead') {
+                this.currentAnimation = 'dead';
+                this.currentImage = 0;
+            }
+
             this.playAnimation(this.IMAGES_DEAD, false);
 
+            if (
+                this.currentImage === this.IMAGES_DEAD.length - 1 &&
+                !this.deadAnimationEnding
+            ) {
+                this.deadAnimationEnding = true;
+
+                setTimeout(() => {
+                    this.deadAnimationFinished = true;
+                }, 1000);
+            }
+
+            return;
         } else if (this.isHurt()) {
+            if (this.currentAnimation !== 'hurt') {
+                this.currentAnimation = 'hurt';
+                this.currentImage = 0;
+            }
+
             this.playAnimation(this.IMAGES_HURT, true);
 
-        } else if (this.currentAnimation === 'alert') {
-            this.playAnimation(this.IMAGES_ALERT, true);
+        } else if (this.fightStarted) {
+            if (this.currentAnimation !== 'walking') {
+                this.currentAnimation = 'walking';
+                this.currentImage = 0;
+            }
 
-        } else if (this.currentAnimation === 'walking') {
             this.playAnimation(this.IMAGES_WALKING, true);
+
+        } else {
+            if (this.currentAnimation !== 'alert') {
+                this.currentAnimation = 'alert';
+                this.currentImage = 0;
+            }
+
+            this.playAnimation(this.IMAGES_ALERT, true);
         }
     }
 

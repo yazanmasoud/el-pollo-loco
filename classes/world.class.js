@@ -197,7 +197,7 @@ class World {
             this.addObjectsToMap(this.level.backgroundObjects);
             this.addObjectsToMap(this.level.enemies);
 
-            if (this.boss) {
+            if (this.boss && !this.boss.deadAnimationFinished) {
                 this.addToMap(this.boss);
             }
 

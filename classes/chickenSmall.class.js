@@ -9,6 +9,7 @@ class ChickenSmall extends MoveableObject {
     width = 50;
     height = 50;
     damage = 0.5;
+    energy = 20;
     ground_Y_Position = 430;
 
     offset = {

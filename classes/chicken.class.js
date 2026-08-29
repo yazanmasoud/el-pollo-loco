@@ -10,6 +10,7 @@ class Chicken extends MoveableObject {
     width = 80;
     height = 80;
     damage = 0.5;
+    energy = 20;
 
     offset = {
         top: 10,

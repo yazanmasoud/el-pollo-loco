@@ -78,49 +78,77 @@ class Boss extends MoveableObject {
      */
     handleBossAnimation() {
         if (this.isDead()) {
-            if (this.currentAnimation !== 'dead') {
-                this.currentAnimation = 'dead';
-                this.currentImage = 0;
-            }
-
-            this.playAnimation(this.IMAGES_DEAD, false);
-
-            if (
-                this.currentImage === this.IMAGES_DEAD.length - 1 &&
-                !this.deadAnimationEnding
-            ) {
-                this.deadAnimationEnding = true;
-
-                setTimeout(() => {
-                    this.deadAnimationFinished = true;
-                }, 1000);
-            }
-
-            return;
+            this.handleDeadAnimation();
         } else if (this.isHurt()) {
-            if (this.currentAnimation !== 'hurt') {
-                this.currentAnimation = 'hurt';
-                this.currentImage = 0;
-            }
-
-            this.playAnimation(this.IMAGES_HURT, true);
-
+            this.handleHurtAnimation();
         } else if (this.fightStarted) {
-            if (this.currentAnimation !== 'walking') {
-                this.currentAnimation = 'walking';
-                this.currentImage = 0;
-            }
-
-            this.playAnimation(this.IMAGES_WALKING, true);
-
+            this.handleWalkingAnimation();
         } else {
-            if (this.currentAnimation !== 'alert') {
-                this.currentAnimation = 'alert';
-                this.currentImage = 0;
-            }
-
-            this.playAnimation(this.IMAGES_ALERT, true);
+            this.handleAlertAnimation();
         }
+    }
+
+    /**
+     * Handles the boss death animation.
+     */
+    handleDeadAnimation() {
+        if (this.currentAnimation !== 'dead') {
+            this.currentAnimation = 'dead';
+            this.currentImage = 0;
+        }
+
+        this.playAnimation(this.IMAGES_DEAD, false);
+        this.finishDeadAnimation();
+    }
+
+    /**
+     * Finishes the boss death animation after the last image.
+     */
+    finishDeadAnimation() {
+        if (this.currentImage !== this.IMAGES_DEAD.length - 1 ||
+            this.deadAnimationEnding) return;
+
+        this.deadAnimationEnding = true;
+
+        setTimeout(() => {
+            this.deadAnimationFinished = true;
+        }, 1000);
+    }
+
+    /**
+     * Handles the boss hurt animation.
+     */
+    handleHurtAnimation() {
+        if (this.currentAnimation !== 'hurt') {
+            this.currentAnimation = 'hurt';
+            this.currentImage = 0;
+        }
+
+        this.playAnimation(this.IMAGES_HURT, true);
+    }
+
+    /**
+     * Handles the boss walking animation.
+     */
+    handleWalkingAnimation() {
+        if (this.currentAnimation !== 'walking') {
+            this.currentAnimation = 'walking';
+            this.currentImage = 0;
+        }
+
+        this.playAnimation(this.IMAGES_WALKING, true);
+    }
+
+    /**
+     * Handles the boss alert animation.
+     */
+    handleAlertAnimation() {
+        if (this.currentAnimation !== 'alert') {
+            this.currentAnimation = 'alert';
+            this.currentImage = 0;
+        }
+
+        this.playAnimation(this.IMAGES_ALERT, true);
     }
 
     /**

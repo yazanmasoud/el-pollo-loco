@@ -75,11 +75,16 @@ class Boss extends MoveableObject {
      * Handles the boss animation depending on its current state.
      */
     handleBossAnimation() {
-        if (this.currentAnimation === 'alert') {
-            this.playAnimation(this.IMAGES_ALERT, true);
-        }
+        if (this.isDead()) {
+            this.playAnimation(this.IMAGES_DEAD, false);
 
-        if (this.currentAnimation === 'walking') {
+        } else if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT, true);
+
+        } else if (this.currentAnimation === 'alert') {
+            this.playAnimation(this.IMAGES_ALERT, true);
+
+        } else if (this.currentAnimation === 'walking') {
             this.playAnimation(this.IMAGES_WALKING, true);
         }
     }
@@ -89,7 +94,7 @@ class Boss extends MoveableObject {
      */
     animate() {
         setInterval(() => {
-            if (this.fightStarted) {
+            if (this.fightStarted && !this.isDead()) {
                 this.moveLeft();
             }
         }, 1000 / 60);

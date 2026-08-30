@@ -9,18 +9,24 @@ class World {
     healthStatusBar = new HealthStatusBar();
     coinsStatusBar = new CoinsStatusBar();
     bottleStatusBar = new BottleStatusBar();
+
     startScreen = new StartScreen();
+
 
     boss;
     bossIntro;
     bossStatusBar;
 
+    gameStarted = false;
+    gameWon = false;
+    gameLost = false;
     bossStarted = false;
+
     throwableBottles = [];
     ctx;
     camera_x = 0;
     level = level1;
-    gameStarted = false;
+
 
     /**
      * Creates a new game world.
@@ -42,6 +48,8 @@ class World {
         this.checkBottleEnemyCollisions();
         this.removeBrokenBottles();
         this.checkLevelEnd();
+        this.checkGameLost();
+        this.checkGameWon();
     }
 
     /**
@@ -184,51 +192,121 @@ class World {
     }
 
     /**
-     * Draws all visible game objects on the canvas.
-     * Also updates the camera position and status bars.
+     * Checks whether the character has lost the game.
+     */
+    checkGameLost() {
+        setInterval(() => {
+            if (this.character.isDead() && !this.gameLost) {
+                this.gameLost = true;
+
+                setTimeout(() => {
+                    showEndScreen('lost');
+                }, 1000);
+            }
+        }, 100);
+    }
+
+    /**
+     * Checks whether the character has won the game.
+     */
+    checkGameWon() {
+        setInterval(() => {
+            if (
+                this.boss &&
+                this.boss.deadAnimationFinished &&
+                !this.gameWon
+            ) {
+                this.gameWon = true;
+
+                setTimeout(() => {
+                    showEndScreen('won');
+                }, 1000);
+            }
+        }, 100);
+    }
+
+    /**
+     * Draws the current game screen depending on the game state.
      */
     draw() {
         if (!this.gameStarted) {
             this.addToMap(this.startScreen);
         } else {
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.drawGame();
 
-            this.ctx.translate(this.camera_x, 0);
-
-            this.addObjectsToMap(this.level.backgroundObjects);
-            this.addObjectsToMap(this.level.enemies);
-
-            if (this.boss && !this.boss.deadAnimationFinished) {
-                this.addToMap(this.boss);
-            }
-
-            this.addObjectsToMap(this.level.clouds);
-            this.addObjectsToMap(this.level.coins);
-            this.addObjectsToMap(this.level.bottles);
-            this.addObjectsToMap(this.throwableBottles);
-            this.addToMap(this.character);
-
-            this.healthStatusBar.setCharacterEnergy(this.character.energy);
-            this.coinsStatusBar.setCollectedAmount(this.character.coinsAmount, this.level.totalCoins);
-            this.bottleStatusBar.setCollectedAmount(this.character.bottleAmount, this.level.totalBottles);
-            if (this.boss) {
-                this.bossStatusBar.setBossEnergy(this.boss.energy);
-            }
-
-            this.ctx.translate(-this.camera_x, 0);
-
-            this.addToMap(this.healthStatusBar);
-            this.addToMap(this.coinsStatusBar);
-            this.addToMap(this.bottleStatusBar);
-
-            if (this.bossStatusBar) {
-                this.addToMap(this.bossStatusBar);
+            if (this.gameLost || this.gameWon) {
+                this.drawDarkOverlay();
             }
         }
 
         requestAnimationFrame(() => {
             this.draw();
         });
+    }
+
+    /**
+     * Draws all game objects and status bars.
+     */
+    drawGame() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.translate(this.camera_x, 0);
+
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.enemies);
+
+        if (this.boss && !this.boss.deadAnimationFinished) {
+            this.addToMap(this.boss);
+        }
+
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.throwableBottles);
+        this.addToMap(this.character);
+
+        this.updateStatusBars();
+
+        this.ctx.translate(-this.camera_x, 0);
+
+        this.drawStatusBars();
+    }
+
+    /**
+     * Draws a dark overlay over the game.
+     */
+    drawDarkOverlay() {
+        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    /**
+     * Updates all status bars with their current values.
+     */
+    updateStatusBars() {
+        this.healthStatusBar.setCharacterEnergy(this.character.energy);
+        this.coinsStatusBar.setCollectedAmount(
+            this.character.coinsAmount, this.level.totalCoins
+        );
+        this.bottleStatusBar.setCollectedAmount(
+            this.character.bottleAmount, this.level.totalBottles
+        );
+
+        if (this.boss) {
+            this.bossStatusBar.setBossEnergy(this.boss.energy);
+        }
+    }
+
+    /**
+     * Draws all visible status bars.
+     */
+    drawStatusBars() {
+        this.addToMap(this.healthStatusBar);
+        this.addToMap(this.coinsStatusBar);
+        this.addToMap(this.bottleStatusBar);
+
+        if (this.bossStatusBar) {
+            this.addToMap(this.bossStatusBar);
+        }
     }
 
     /**

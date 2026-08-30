@@ -4,60 +4,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EL Pollo Loco</title>
+
+    <title>El Pollo Loco</title>
+
+    <link rel="shortcut icon" href="assets/img/8_coin/coin_1.png" type="image/x-icon">
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/dialog.css">
 
-
+    <!-- Classes -->
     <script src="./classes/drawable-object.class.js" defer></script>
     <script src="./classes/moveable-object.class.js" defer></script>
     <script src="./classes/status-bar.class.js" defer></script>
+
     <script src="./classes/healthStatusBar.class.js" defer></script>
     <script src="./classes/coinsStatusBar.class.js" defer></script>
     <script src="./classes/bottleStatusBar.class.js" defer></script>
+    <script src="./classes/bossStatusBar.class.js" defer></script>
+
     <script src="./classes/throwableBottle.class.js" defer></script>
     <script src="./classes/startscreen.class.js" defer></script>
     <script src="./classes/character.class.js" defer></script>
-
-    <script src="./classes/world.class.js" defer></script>
 
     <script src="./classes/chicken.class.js" defer></script>
     <script src="./classes/chickenSmall.class.js" defer></script>
     <script src="./classes/boss.class.js" defer></script>
     <script src="./classes/boss-intro.class.js" defer></script>
-    <script src="./classes/bossStatusBar.class.js" defer></script>
+
     <script src="./classes/cloud.class.js" defer></script>
     <script src="./classes/background-object.class.js" defer></script>
     <script src="./classes/coins.class.js" defer></script>
     <script src="./classes/bottle.class.js" defer></script>
+
     <script src="./classes/keyboard.class.js" defer></script>
     <script src="./classes/level.class.js" defer></script>
     <script src="./classes/music.class.js" defer></script>
+    <script src="./classes/world.class.js" defer></script>
 
-    <script src="./js/game.js" defer></script>
+    <!-- Level -->
     <script src="./levels/level1.js" defer></script>
 
-
-    <link rel="shortcut icon" href="assets/img/8_coin/coin_1.png" type="image/x-icon">
+    <!-- Game -->
+    <script src="./js/game.js" defer></script>
 </head>
 
 <body onload="init()">
+
     <h1>El Pollo Loco</h1>
+
     <div id="gameContainer" class="gameContainer">
 
         <canvas id="canvas" width="720" height="480"></canvas>
 
+        <!-- Start Menu -->
         <div class="menu">
-            <button id="startButton" class="menuButton" onclick="startGame()">START</button>
-            <button id="controlsButton" class="menuButton" onclick="openControls()">CONTROLS</button>
+            <button id="startButton" class="menuButton" onclick="startGame()">
+                START
+            </button>
+
+            <button id="controlsButton" class="menuButton" onclick="openControls()">
+                CONTROLS
+            </button>
         </div>
 
+        <!-- Controls Overlay -->
         <div id="overlay" class="overlay" onclick="closeControls()">
 
             <div id="controlsDialog" class="controlsDialog" onclick="event.stopPropagation()">
 
-                <button id="closeControlsButton" class="closeButton" onclick="closeControls()">✕</button>
+                <button id="closeControlsButton" class="closeButton" onclick="closeControls()">
+                    ✕
+                </button>
 
                 <h2 class="dialogTitle">Controls</h2>
 
@@ -94,20 +112,53 @@
 
         </div>
 
+        <!-- End Screen -->
+        <div id="endScreenOverlay" class="endScreenOverlay">
+
+            <div class="endScreen">
+
+                <img id="endScreenImage" class="endScreenImage" src="" alt="Game result">
+                <div class="endScreenButtons">
+                    <button id="restartButton" class="menuButton" onclick="restartGame()">
+                        RESTART
+                    </button>
+
+                    <button id="exitButton" class="menuButton" onclick="exitGame()">
+                        EXIT
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Game Buttons -->
         <div class="gameButtons">
             <button id="mute" class="iconButton muteButton" onclick="music.controlVolume()"></button>
+
             <button id="fullscreen" class="iconButton fullscreen-button" onclick="toggleFullscreen()"></button>
         </div>
+
     </div>
 
+    <!-- Legal Notice -->
     <div class="legalNotice">
-        <button id="legalNoticeButton" onclick="openLegalNotice()">Impressum / Legal Notice</button>
+        <button id="legalNoticeButton" onclick="openLegalNotice()">
+            Impressum / Legal Notice
+        </button>
     </div>
 
+    <!-- Legal Notice Overlay -->
     <div id="legalNoticeOverlay" class="overlay" onclick="closeLegalNotice()">
+
         <div class="controlsDialog" onclick="event.stopPropagation()">
-            <button class="closeButton" onclick="closeLegalNotice()">x</button>
+
+            <button class="closeButton" onclick="closeLegalNotice()">
+                ✕
+            </button>
+
             <div class="legalContent">
+
                 <h3>Information according to Section 5 DDG</h3>
 
                 <p>
@@ -118,15 +169,17 @@
                 </p>
 
                 <h3>Contact</h3>
-                <p>
-                    Telefon: 017657990714
-                </p>
-                <p>
-                    Email: yazanmas@gmail.com
-                </p>
+
+                <p>Telefon: 017657990714</p>
+
+                <p>Email: yazanmas@gmail.com</p>
+
             </div>
+
         </div>
+
     </div>
+
 </body>
 
 </html>

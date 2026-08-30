@@ -198,7 +198,8 @@ class World {
         setInterval(() => {
             if (this.character.isDead() && !this.gameLost) {
                 this.gameLost = true;
-
+                resetKeyboard();
+                
                 setTimeout(() => {
                     showEndScreen('lost');
                 }, 1000);
@@ -217,6 +218,7 @@ class World {
                 !this.gameWon
             ) {
                 this.gameWon = true;
+                resetKeyboard();
 
                 setTimeout(() => {
                     showEndScreen('won');

@@ -53,6 +53,17 @@ function exitGame() {
 }
 
 /**
+ * Resets all keyboard controls.
+ */
+function resetKeyboard() {
+    keyboard.LEFT = false;
+    keyboard.RIGHT = false;
+    keyboard.UP = false;
+    keyboard.SPACE = false;
+    keyboard.D = false;
+}
+
+/**
  * Shows the end screen with the selected game result.
  *
  * @param {string} result - The result of the game.
@@ -146,6 +157,9 @@ function closeLegalNotice() {
  * keyboard control states.
  */
 window.addEventListener('keydown', (event) => {
+    if (world.gameWon || world.gameLost) {
+        return;
+    }
 
     if (event.code == 'ArrowLeft') {
         keyboard.LEFT = true;
@@ -174,7 +188,6 @@ window.addEventListener('keydown', (event) => {
  * keyboard control states.
  */
 window.addEventListener('keyup', (event) => {
-
     if (event.code == 'ArrowLeft') {
         keyboard.LEFT = false;
     }

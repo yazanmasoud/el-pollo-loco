@@ -13,7 +13,7 @@ class ChickenSmall extends MoveableObject {
     ground_Y_Position = 430;
 
     offset = {
-        top: 10,
+        top: 5,
         bottom: 10,
         left: 5,
         right: 10

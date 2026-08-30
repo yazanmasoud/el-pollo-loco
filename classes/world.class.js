@@ -175,6 +175,7 @@ class World {
         setInterval(() => {
             if (this.character.x >= this.level.level_End_X && !this.bossStarted) {
                 this.boss = new Boss();
+                this.boss.world = this;
                 this.bossStatusBar = new BossStatusBar();
                 this.bossStarted = true;
                 this.bossIntro.start();

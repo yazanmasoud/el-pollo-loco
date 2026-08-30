@@ -74,6 +74,29 @@ class Boss extends MoveableObject {
     }
 
     /**
+     * Applies damage to the boss and updates its speed.
+     *
+     * @param {number} damage - The amount of damage received.
+     */
+    hit(damage) {
+        super.hit(damage);
+        this.updateSpeed();
+    }
+
+    /**
+     * Updates the boss speed based on its remaining energy.
+     */
+    updateSpeed() {
+        if (this.energy <= 30) {
+            this.speed = 1.5;
+        } else if (this.energy <= 60) {
+            this.speed = 1;
+        } else {
+            this.speed = 0.5;
+        }
+    }
+
+    /**
      * Handles the boss animation depending on its current state.
      */
     handleBossAnimation() {
@@ -157,12 +180,25 @@ class Boss extends MoveableObject {
     animate() {
         setInterval(() => {
             if (this.fightStarted && !this.isDead()) {
-                this.moveLeft();
+                this.followCharacter();
             }
         }, 1000 / 60);
 
         setInterval(() => {
             this.handleBossAnimation();
         }, 150);
+    }
+
+    /**
+     * Makes the boss follow the character.
+     */
+    followCharacter() {
+        if (this.world.character.x < this.x) {
+            this.moveLeft();
+            this.otherDirection = false;
+        } else {
+            this.moveRight();
+            this.otherDirection = true;
+        }
     }
 }

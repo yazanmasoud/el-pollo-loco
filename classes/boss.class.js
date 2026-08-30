@@ -9,11 +9,17 @@ class Boss extends MoveableObject {
     height = 350;
     energy = 100;
     x = 5000;
+    speed = 0.5;
+    damage = 10;
+
+    isAttacking = false;
     fightStarted = false;
-    currentAnimation = 'alert';
+    attackDamageDone = false;
     deadAnimationFinished = false;
     deadAnimationEnding = false;
-    speed = 0.5;
+
+    currentAnimation = 'alert';
+
 
     IMAGES_WALKING = [
         'assets/img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -97,6 +103,27 @@ class Boss extends MoveableObject {
     }
 
     /**
+     * Checks whether the character is close enough to attack.
+     *
+     * @returns {boolean} True if the character is within attack range.
+     */
+    isCharacterInAttackRange() {
+        return Math.abs(this.world.character.x - this.x) < 150;
+    }
+
+    /**
+     * Starts an attack if the boss is not already attacking.
+     */
+    attack() {
+        if (this.isAttacking) return;
+
+        this.isAttacking = true;
+        this.attackDamageDone = false;
+        this.currentAnimation = 'attack';
+        this.currentImage = 0;
+    }
+
+    /**
      * Handles the boss animation depending on its current state.
      */
     handleBossAnimation() {
@@ -104,6 +131,8 @@ class Boss extends MoveableObject {
             this.handleDeadAnimation();
         } else if (this.isHurt()) {
             this.handleHurtAnimation();
+        } else if (this.isAttacking) {
+            this.handleAttackAnimation();
         } else if (this.fightStarted) {
             this.handleWalkingAnimation();
         } else {
@@ -151,6 +180,27 @@ class Boss extends MoveableObject {
     }
 
     /**
+     * Handles the boss attack animation.
+     */
+    handleAttackAnimation() {
+        if (this.currentAnimation !== 'attack') {
+            this.currentAnimation = 'attack';
+            this.currentImage = 0;
+        }
+
+        this.playAnimation(this.IMAGES_ATTACK, false);
+
+        if (this.currentImage === 4 && !this.attackDamageDone) {
+            this.world.character.hit(this.damage);
+            this.attackDamageDone = true;
+        }
+
+        if (this.currentImage >= this.IMAGES_ATTACK.length - 1) {
+            this.isAttacking = false;
+        }
+    }
+
+    /**
      * Handles the boss walking animation.
      */
     handleWalkingAnimation() {
@@ -180,7 +230,11 @@ class Boss extends MoveableObject {
     animate() {
         setInterval(() => {
             if (this.fightStarted && !this.isDead()) {
-                this.followCharacter();
+                if (this.isCharacterInAttackRange()) {
+                    this.attack();
+                } else {
+                    this.followCharacter();
+                }
             }
         }, 1000 / 60);
 

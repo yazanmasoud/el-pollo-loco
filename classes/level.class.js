@@ -9,6 +9,8 @@ class Level {
     backgroundObjects;
     coins;
     bottles;
+    totalCoins;
+    totalBottles;
     level_End_X = 4500;
 
     /**
@@ -26,5 +28,7 @@ class Level {
         this.backgroundObjects = backgroundObjects;
         this.coins = coins;
         this.bottles = bottles;
+        this.totalCoins = coins.length;
+        this.totalBottles = bottles.length;
     }
 }

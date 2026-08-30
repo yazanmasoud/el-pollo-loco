@@ -24,4 +24,13 @@ class BossStatusBar extends StatusBar {
         this.height = 55;
         this.setPercentage(100);
     }
+
+    /**
+     * Updates the boss health bar from the current boss energy.
+     *
+     * @param {number} energy - The current boss energy.
+     */
+    setBossEnergy(energy) {
+        this.setPercentage(energy);
+    }
 }

@@ -25,4 +25,15 @@ class BottleStatusBar extends StatusBar {
         this.y = 75;
         this.setPercentage(0);
     }
+
+    /**
+     * Updates the bottle bar based on the collected amount and total available bottles.
+     *
+     * @param {number} collectedBottles - The number of collected bottles.
+     * @param {number} totalBottles - The total number of bottles in the level.
+     */
+    setCollectedAmount(collectedBottles, totalBottles) {
+        let percentage = totalBottles === 0 ? 0 : (collectedBottles / totalBottles) * 100;
+        this.setPercentage(Math.min(100, percentage));
+    }
 }

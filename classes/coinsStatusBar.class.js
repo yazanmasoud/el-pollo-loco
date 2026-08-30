@@ -25,4 +25,15 @@ class CoinsStatusBar extends StatusBar {
         this.y = 30;
         this.setPercentage(0);
     }
+
+    /**
+     * Updates the coin bar based on the collected amount and total available coins.
+     *
+     * @param {number} collectedCoins - The number of collected coins.
+     * @param {number} totalCoins - The total number of coins in the level.
+     */
+    setCollectedAmount(collectedCoins, totalCoins) {
+        let percentage = totalCoins === 0 ? 0 : (collectedCoins / totalCoins) * 100;
+        this.setPercentage(Math.min(100, percentage));
+    }
 }

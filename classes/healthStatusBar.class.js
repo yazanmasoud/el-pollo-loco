@@ -25,4 +25,13 @@ class HealthStatusBar extends StatusBar {
         this.y = -10;
         this.setPercentage(100);
     }
+
+    /**
+     * Updates the character health bar from the current energy value.
+     *
+     * @param {number} energy - The current character energy.
+     */
+    setCharacterEnergy(energy) {
+        this.setPercentage(energy);
+    }
 }

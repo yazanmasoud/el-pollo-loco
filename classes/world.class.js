@@ -208,11 +208,11 @@ class World {
             this.addObjectsToMap(this.throwableBottles);
             this.addToMap(this.character);
 
-            this.healthStatusBar.setPercentage(this.character.energy);
-            this.coinsStatusBar.setPercentage(this.character.coinsAmount * 10);
-            this.bottleStatusBar.setPercentage(this.character.bottleAmount * 10);
+            this.healthStatusBar.setCharacterEnergy(this.character.energy);
+            this.coinsStatusBar.setCollectedAmount(this.character.coinsAmount, this.level.totalCoins);
+            this.bottleStatusBar.setCollectedAmount(this.character.bottleAmount, this.level.totalBottles);
             if (this.boss) {
-                this.bossStatusBar.setPercentage(this.boss.energy);
+                this.bossStatusBar.setBossEnergy(this.boss.energy);
             }
 
             this.ctx.translate(-this.camera_x, 0);

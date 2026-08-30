@@ -58,12 +58,16 @@ class World {
      * @param {MoveableObject} enemy - The enemy to defeat.
      * @param {number} index - The index of the enemy in the enemies array.
      */
-    killEnemy(enemy, index) {
+    killEnemy(enemy) {
         enemy.dead = true;
         enemy.playDeadAnimation();
 
         setTimeout(() => {
-            this.level.enemies.splice(index, 1);
+            const index = this.level.enemies.indexOf(enemy);
+
+            if (index !== -1) {
+                this.level.enemies.splice(index, 1);
+            }
         }, 500);
     }
 
@@ -73,7 +77,7 @@ class World {
     checkEnemyCollisions() {
         setInterval(() => {
             for (let i = 0; i < this.level.enemies.length; i++) {
-                this.handleEnemyCollision(this.level.enemies[i], i);
+                this.handleEnemyCollision(this.level.enemies[i]);
             }
         }, 1000 / 25);
     }
@@ -91,7 +95,7 @@ class World {
 
         if (this.character.isColliding(enemy)) {
             if (this.character.isJumpingOnEnemy(enemy)) {
-                this.killEnemy(enemy, index);
+                this.killEnemy(enemy);
                 this.character.bounce();
             } else {
                 this.character.hit(enemy.damage);
@@ -199,7 +203,7 @@ class World {
             if (this.character.isDead() && !this.gameLost) {
                 this.gameLost = true;
                 resetKeyboard();
-                
+
                 setTimeout(() => {
                     showEndScreen('lost');
                 }, 1000);

@@ -78,13 +78,17 @@ class Character extends MoveableObject {
      */
     constructor() {
         super();
+
         this.setGroundPosition();
+        this.previousY = this.y;
+
         this.loadImage('assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+
         this.applyGravity();
         this.animate();
     }

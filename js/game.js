@@ -3,6 +3,7 @@ let world;
 let music;
 let keyboard = new Keyboard();
 let fullscreenButton;
+let audioManager;
 
 
 /**
@@ -17,7 +18,9 @@ function init() {
 
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    music = new Music();
+
+    audioManager = world.audioManager;
+
 
     if (sessionStorage.getItem('restartGame') === 'true') {
         sessionStorage.removeItem('restartGame');
@@ -30,9 +33,11 @@ function init() {
  */
 function startGame() {
     world.gameStarted = true;
+
+    audioManager.playGameMusic();
+
     document.getElementById('startButton').style.display = 'none';
     document.getElementById('controlsButton').style.display = 'none';
-    document.getElementById('mute').style.display = 'none';
     document.getElementById('fullscreen').style.display = 'none';
 }
 

@@ -211,6 +211,9 @@ class World {
 
                 setTimeout(() => {
                     showEndScreen('lost');
+                    this.audioManager.playSound(
+                        this.audioManager.gameOverSound
+                    );
                 }, 1000);
             }
         }, 100);

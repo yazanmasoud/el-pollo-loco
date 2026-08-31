@@ -129,11 +129,15 @@ class Character extends MoveableObject {
             if (this.world.keyboard.RIGHT && this.canMove) {
                 this.moveRight();
                 this.otherDirection = false;
-            }
+                this.world.audioManager.playWalkingSound();
 
-            if (this.world.keyboard.LEFT && this.x > 0 && this.canMove) {
+            } else if (this.world.keyboard.LEFT && this.x > 0 && this.canMove) {
                 this.moveLeft();
                 this.otherDirection = true;
+                this.world.audioManager.playWalkingSound();
+
+            } else {
+                this.world.audioManager.stopWalkingSound();
             }
 
             if (!this.world.bossIntro.active) {
@@ -211,6 +215,7 @@ class Character extends MoveableObject {
      */
     throwBottle() {
         let offset = this.otherDirection ? -50 : 100;
+
         let thrownBottle = new ThrowableBottle(
             this.x + offset,
             this.y + 100,
@@ -220,6 +225,10 @@ class Character extends MoveableObject {
         if (this.otherDirection) {
             thrownBottle.x = this.x - 50;
         }
+
+        this.world.audioManager.playSound(
+            this.world.audioManager.throwBottleSound
+        );
 
         this.world.throwableBottles.push(thrownBottle);
         thrownBottle.throw();

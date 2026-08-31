@@ -146,7 +146,7 @@ class Character extends MoveableObject {
      */
     startMovement() {
         setInterval(() => {
-            if (this.isDead()) {
+            if (!this.world.gameStarted || this.isDead()) {
                 return;
             }
 
@@ -237,21 +237,17 @@ class Character extends MoveableObject {
      */
     startAnimations() {
         setInterval(() => {
+            if (!this.world.gameStarted) {return;}
             this.interval_counter++;
 
-            if (this.isHurt()) {
-                this.handleHurtAnimation();
+            if (this.isHurt()) {this.handleHurtAnimation();
 
-            } else if (this.isDead()) {
-                this.handleDeadAnimation();
+            } else if (this.isDead()) {this.handleDeadAnimation();
 
-            } else if (this.isAboveGround()) {
-                this.handleJumpAnimation();
+            } else if (this.isAboveGround()) {this.handleJumpAnimation();
 
-            } else if (this.canMove &&
-                (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)
-            ) {
-                this.handleWalkingAnimation();
+            } else if (this.canMove &&(this.world.keyboard.RIGHT || this.world.keyboard.LEFT)
+            ) {this.handleWalkingAnimation();
 
             } else { this.handleIdleAnimation(); }
 
@@ -353,7 +349,7 @@ class Character extends MoveableObject {
         let thrownBottle = new ThrowableBottle(this.x + offset, this.y + 100, this.otherDirection
         );
 
-        if (this.otherDirection) {thrownBottle.x = this.x - 50;}
+        if (this.otherDirection) { thrownBottle.x = this.x - 50; }
 
         this.world.audioManager.playSound(
             this.world.audioManager.throwBottleSound

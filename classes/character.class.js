@@ -253,9 +253,7 @@ class Character extends MoveableObject {
             ) {
                 this.handleWalkingAnimation();
 
-            } else {
-                this.handleIdleAnimation();
-            }
+            } else { this.handleIdleAnimation(); }
 
         }, 100);
     }
@@ -315,21 +313,34 @@ class Character extends MoveableObject {
         const idleTime = Date.now() - this.idleStartTime;
 
         if (idleTime >= 5000) {
-            if (this.currentAnimation !== 'sleep') {
-                this.currentAnimation = 'sleep';
-                this.currentImage = 0;
-            }
-
-            this.playAnimation(this.IMAGES_SLEEP, true);
-
+            this.handleSleepAnimation();
         } else if (this.interval_counter % 2 === 0) {
-            if (this.currentAnimation !== 'idle') {
-                this.currentAnimation = 'idle';
-                this.currentImage = 0;
-            }
-
-            this.playAnimation(this.IMAGES_IDLE, true);
+            this.playIdleAnimation();
         }
+    }
+
+    /**
+     * Handles the character's sleep animation.
+     */
+    handleSleepAnimation() {
+        if (this.currentAnimation !== 'sleep') {
+            this.currentAnimation = 'sleep';
+            this.currentImage = 0;
+        }
+
+        this.playAnimation(this.IMAGES_SLEEP, true);
+    }
+
+    /**
+     * Plays the character's idle animation.
+     */
+    playIdleAnimation() {
+        if (this.currentAnimation !== 'idle') {
+            this.currentAnimation = 'idle';
+            this.currentImage = 0;
+        }
+
+        this.playAnimation(this.IMAGES_IDLE, true);
     }
 
     /**

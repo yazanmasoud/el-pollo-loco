@@ -52,6 +52,11 @@
 
 <body onload="init()">
 
+    <div id="rotateOverlay" class="rotateOverlay">
+        <div class="rotateIcon">📱↻</div>
+        <p>Please rotate your device to play</p>
+    </div>
+
     <div id="gameContainer" class="gameContainer">
 
         <canvas id="canvas" width="720" height="480"></canvas>
@@ -134,7 +139,7 @@
         <!-- Game Buttons -->
         <div class="gameButtons">
             <button id="mute" class="iconButton muteButton" onclick="audioManager.controlVolume()">
-            <button id="fullscreen" class="iconButton fullscreen-button" onclick="toggleFullscreen()"></button>
+                <button id="fullscreen" class="iconButton fullscreen-button" onclick="toggleFullscreen()"></button>
         </div>
 
     </div>

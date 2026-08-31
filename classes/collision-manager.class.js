@@ -31,6 +31,9 @@ class CollisionManager {
      * @param {MoveableObject} enemy - The enemy involved in the collision.
      */
     handleEnemyCollision(enemy) {
+        if (this.world.gameWon || this.world.gameLost) {
+            return;
+        }
         if (enemy.dead) return;
 
         if (this.world.character.isColliding(enemy)) {

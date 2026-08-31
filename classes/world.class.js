@@ -41,9 +41,9 @@ class World {
         this.character.world = this;
         this.bossIntro = new BossIntro(this);
         this.audioManager = new AudioManager();
+        this.collisionManager = new CollisionManager(this);
         this.draw();
-        this.setWorld();
-        this.checkEnemyCollisions();
+        this.collisionManager.checkEnemyCollisions();
         this.checkCoinsCollisions();
         this.checkBottleCollisions();
         this.checkBottleEnemyCollisions();
@@ -77,38 +77,6 @@ class World {
     }
 
     /**
-     * Continuously checks for collisions between the character and enemies.
-     */
-    checkEnemyCollisions() {
-        setInterval(() => {
-            for (let i = 0; i < this.level.enemies.length; i++) {
-                this.handleEnemyCollision(this.level.enemies[i]);
-            }
-        }, 1000 / 25);
-    }
-
-    /**
-     * Handles a collision between the character and an enemy.
-     * The enemy is defeated if the character jumps on it;
-     * otherwise, the character receives damage.
-     *
-     * @param {MoveableObject} enemy - The enemy involved in the collision.
-     * @param {number} index - The index of the enemy in the enemies array.
-     */
-    handleEnemyCollision(enemy, index) {
-        if (enemy.dead) return;
-
-        if (this.character.isColliding(enemy)) {
-            if (this.character.isJumpingOnEnemy(enemy)) {
-                this.killEnemy(enemy);
-                this.character.bounce();
-            } else {
-                this.character.hit(enemy.damage);
-            }
-        }
-    }
-
-    /**
      * Continuously checks for collisions between throwable bottles and enemies.
      */
     checkBottleEnemyCollisions() {
@@ -120,37 +88,66 @@ class World {
     }
 
     /**
-     * Handles collisions between a throwable bottle and all active enemies.
+     * Handles collisions between a throwable bottle and active enemies.
      *
-     * @param {ThrowableBottle} bottle - The throwable bottle to check.
+     * @param {ThrowableBottle} bottle - The bottle to check.
      */
     handleBottleEnemyCollision(bottle) {
         if (bottle.isSplashing || bottle.isBroken) {
             return;
         }
 
-        let enemies = [...this.level.enemies];
+        const enemies = this.getActiveEnemies();
+
+        for (let i = 0; i < enemies.length; i++) {
+            if (bottle.isColliding(enemies[i])) {
+                this.handleBottleHit(bottle, enemies[i]);
+                break;
+            }
+        }
+    }
+
+    /**
+     * Returns all active enemies including the boss.
+     *
+     * @returns {MoveableObject[]} All active enemies.
+     */
+    getActiveEnemies() {
+        const enemies = [...this.level.enemies];
 
         if (this.boss && !this.boss.isDead()) {
             enemies.push(this.boss);
         }
 
-        for (let i = 0; i < enemies.length; i++) {
-            let enemy = enemies[i];
+        return enemies;
+    }
 
-            if (bottle.isColliding(enemy)) {
-                console.log('Bottle hit:', enemy.constructor.name);
-                bottle.isSplashing = true;
-                bottle.playSplashAnimation();
+    /**
+     * Handles a bottle hitting an enemy.
+     *
+     * @param {ThrowableBottle} bottle - The bottle that hit.
+     * @param {MoveableObject} enemy - The enemy that was hit.
+     */
+    handleBottleHit(bottle, enemy) {
 
-                enemy.hit(20);
+        bottle.isSplashing = true;
+        bottle.playSplashAnimation();
+        enemy.hit(20);
 
-                if (enemy.isDead() && enemy !== this.boss) {
-                    this.killEnemy(enemy, this.level.enemies.indexOf(enemy));
-                }
+        this.removeDeadEnemy(enemy);
+    }
 
-                break;
-            }
+    /**
+     * Removes a dead regular enemy.
+     *
+     * @param {MoveableObject} enemy - The enemy to remove.
+     */
+    removeDeadEnemy(enemy) {
+        if (enemy.isDead() && enemy !== this.boss) {
+            this.killEnemy(
+                enemy,
+                this.level.enemies.indexOf(enemy)
+            );
         }
     }
 
@@ -321,13 +318,6 @@ class World {
         if (this.bossStatusBar) {
             this.addToMap(this.bossStatusBar);
         }
-    }
-
-    /**
-     * Assigns this world instance to the character.
-     */
-    setWorld() {
-        this.character.world = this;
     }
 
     /**

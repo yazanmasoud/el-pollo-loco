@@ -146,30 +146,10 @@
     margin-top: 10px;
 }
 
-.legalNotice button {
-    border: none;
-    background: transparent;
-
-    color: #fdf1a1;
-    font-family: 'Fredoka', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    text-decoration: underline;
-
-    text-shadow:
-        0 2px 5px rgba(0, 0, 0, .5);
-
-    transition:
-        transform .18s ease,
-        filter .18s ease;
-}
-
-.legalNotice button:hover {
-    transform: scale(1.05);
-    filter: brightness(1.15);
+.legalNotice .menuButton {
+    width: 350px;
+    margin-top: 50px;
+    
 }
 
 .legalContent {

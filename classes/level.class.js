@@ -11,7 +11,7 @@ class Level {
     bottles;
     totalCoins;
     totalBottles;
-    level_End_X = 4500;
+    level_End_X = 4000;
 
     /**
      * Creates a new game level with all required game objects.

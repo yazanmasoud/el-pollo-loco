@@ -50,8 +50,8 @@ class BossIntro {
      * Starts the boss alert phase when the camera reaches its target position.
      */
     moveCameraToBoss() {
-        if (this.world.camera_x > this.startCameraX - 500) {
-            this.world.camera_x -= 3;
+        if (this.world.camera_x > this.startCameraX - 1000) {
+            this.world.camera_x -= 4;
         } else {
             this.phase = 'bossAlert';
             this.playBossAlert();
@@ -64,7 +64,7 @@ class BossIntro {
      */
     moveCameraBack() {
         if (this.world.camera_x < this.startCameraX) {
-            this.world.camera_x += 4;
+            this.world.camera_x += 6;
         } else {
             this.finishIntro();
         }

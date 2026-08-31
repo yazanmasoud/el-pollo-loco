@@ -353,9 +353,7 @@ class Character extends MoveableObject {
         let thrownBottle = new ThrowableBottle(this.x + offset, this.y + 100, this.otherDirection
         );
 
-        if (this.otherDirection) {
-            thrownBottle.x = this.x - 50;
-        }
+        if (this.otherDirection) {thrownBottle.x = this.x - 50;}
 
         this.world.audioManager.playSound(
             this.world.audioManager.throwBottleSound

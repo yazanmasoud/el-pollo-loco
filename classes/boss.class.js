@@ -226,12 +226,24 @@ class Boss extends MoveableObject {
         }
 
         this.playAnimation(this.IMAGES_ATTACK, false);
+        this.handleAttackDamage();
+        this.finishAttack();
+    }
 
+    /**
+     * Applies damage to the character during the attack.
+     */
+    handleAttackDamage() {
         if (this.currentImage === 4 && !this.attackDamageDone) {
             this.world.character.hit(this.damage);
             this.attackDamageDone = true;
         }
+    }
 
+    /**
+     * Finishes the attack after the animation ends.
+     */
+    finishAttack() {
         if (this.currentImage >= this.IMAGES_ATTACK.length - 1) {
             this.isAttacking = false;
         }

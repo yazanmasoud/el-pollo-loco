@@ -144,6 +144,9 @@ class MoveableObject extends DrawableObject {
      */
     jump() {
         this.speedY = -20;
+        this.world.audioManager.playSound(
+            this.world.audioManager.jumpSound
+        );
     }
 
     /**

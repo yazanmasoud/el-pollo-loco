@@ -14,6 +14,7 @@ class Character extends MoveableObject {
     throwPressed = false;
     canMove = true;
     currentAnimation = 'idle';
+    deathSoundPlayed = false;
 
     offset = {
         top: 85,
@@ -91,6 +92,29 @@ class Character extends MoveableObject {
 
         this.applyGravity();
         this.animate();
+    }
+
+    /**
+     * Applies damage to the character and plays the corresponding sound.
+     *
+     * @param {number} damage - The amount of damage received.
+     */
+    hit(damage) {
+        super.hit(damage);
+
+        if (this.isDead() && !this.deathSoundPlayed) {
+            this.deathSoundPlayed = true;
+
+            this.world.audioManager.playSound(
+                this.world.audioManager.characterDieSound
+            );
+        } else if (!this.isDead() &&
+            this.world.audioManager.characterHurtSound.paused) {
+
+            this.world.audioManager.playSound(
+                this.world.audioManager.characterHurtSound
+            );
+        }
     }
 
     /**

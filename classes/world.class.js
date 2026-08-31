@@ -40,6 +40,7 @@ class World {
         this.keyboard = keyboard;
         this.character.world = this;
         this.bossIntro = new BossIntro(this);
+        this.audioManager = new AudioManager();
         this.draw();
         this.setWorld();
         this.checkEnemyCollisions();
@@ -53,14 +54,18 @@ class World {
     }
 
     /**
-     * Defeats an enemy and removes it from the level after a short delay.
+     * Defeats an enemy, plays its death animation and removes it
+     * from the level after a short delay.
      *
      * @param {MoveableObject} enemy - The enemy to defeat.
-     * @param {number} index - The index of the enemy in the enemies array.
      */
     killEnemy(enemy) {
         enemy.dead = true;
         enemy.playDeadAnimation();
+
+        this.audioManager.playSound(
+            this.audioManager.chickenDieSound
+        );
 
         setTimeout(() => {
             const index = this.level.enemies.indexOf(enemy);

@@ -82,12 +82,22 @@ class Boss extends MoveableObject {
     }
 
     /**
-     * Applies damage to the boss and updates its speed.
+     * Applies damage to the boss, plays the hurt sound,
+     * updates its speed, and triggers enemy reinforcements.
      *
      * @param {number} damage - The amount of damage received.
      */
     hit(damage) {
         super.hit(damage);
+
+        if (!this.isDead() &&
+            this.world.audioManager.bossHurtSound.paused) {
+
+            this.world.audioManager.playSound(
+                this.world.audioManager.bossHurtSound
+            );
+        }
+
         this.updateSpeed();
 
         if (this.energy <= 120 && !this.chickensSummonedAt60) {
@@ -164,12 +174,16 @@ class Boss extends MoveableObject {
     }
 
     /**
-     * Handles the boss death animation.
+     * Handles the boss death animation and plays the death sound once.
      */
     handleDeadAnimation() {
         if (this.currentAnimation !== 'dead') {
             this.currentAnimation = 'dead';
             this.currentImage = 0;
+
+            this.world.audioManager.playSound(
+                this.world.audioManager.bossDieSound
+            );
         }
 
         this.playAnimation(this.IMAGES_DEAD, false);

@@ -134,115 +134,202 @@ class Character extends MoveableObject {
     }
 
     /**
-     * Starts the character's movement controls and animation handling.
+     * Starts the character movement and animation handling.
      */
     animate() {
+        this.startMovement();
+        this.startAnimations();
+    }
+
+    /**
+     * Starts the character movement controls.
+     */
+    startMovement() {
         setInterval(() => {
             if (this.isDead()) {
                 return;
             }
 
-            if (this.world.keyboard.RIGHT && this.canMove) {
-                this.moveRight();
-                this.otherDirection = false;
-                this.world.audioManager.playWalkingSound();
-
-            } else if (this.world.keyboard.LEFT && this.x > 0 && this.canMove) {
-                this.moveLeft();
-                this.otherDirection = true;
-                this.world.audioManager.playWalkingSound();
-
-            } else {
-                this.world.audioManager.stopWalkingSound();
-            }
-
-            if (!this.world.bossIntro.active) {
-                this.world.camera_x = -this.x + 100;
-            }
-
-            if (this.world.keyboard.SPACE && !this.isAboveGround() && this.canMove) {
-                this.jump();
-            }
-
-            if (this.world.keyboard.D && this.bottleAmount > 0 && !this.throwPressed && this.canMove) {
-                this.throwBottle();
-                this.throwPressed = true;
-            }
-
-            if (!this.world.keyboard.D) {
-                this.throwPressed = false;
-            }
-
-            if (
-                this.world.keyboard.RIGHT ||
-                this.world.keyboard.LEFT ||
-                this.world.keyboard.SPACE
-            ) {
-                this.idleStartTime = Date.now();
-            }
+            this.handleMovement();
+            this.updateCamera();
+            this.handleJump();
+            this.handleThrow();
+            this.resetIdleTimer();
 
         }, 1000 / 60);
+    }
 
+    /**
+     * Handles the character's left and right movement.
+     */
+    handleMovement() {
+        if (this.world.keyboard.RIGHT && this.canMove) {
+            this.moveRight();
+            this.otherDirection = false;
+            this.world.audioManager.playWalkingSound();
+
+        } else if (this.world.keyboard.LEFT && this.x > 0 && this.canMove) {
+            this.moveLeft();
+            this.otherDirection = true;
+            this.world.audioManager.playWalkingSound();
+
+        } else {
+            this.world.audioManager.stopWalkingSound();
+        }
+    }
+
+    /**
+     * Updates the camera position to follow the character.
+     */
+    updateCamera() {
+        if (!this.world.bossIntro.active) {
+            this.world.camera_x = -this.x + 100;
+        }
+    }
+
+    /**
+     * Handles the character's jump.
+     */
+    handleJump() {
+        if (
+            this.world.keyboard.SPACE &&
+            !this.isAboveGround() &&
+            this.canMove
+        ) {
+            this.jump();
+        }
+    }
+
+    /**
+     * Handles throwing bottles.
+     */
+    handleThrow() {
+        if (
+            this.world.keyboard.D &&
+            this.bottleAmount > 0 &&
+            !this.throwPressed &&
+            this.canMove
+        ) {
+            this.throwBottle();
+            this.throwPressed = true;
+        }
+
+        if (!this.world.keyboard.D) {
+            this.throwPressed = false;
+        }
+    }
+
+    /**
+     * Resets the idle timer when the character is active.
+     */
+    resetIdleTimer() {
+        if (
+            this.world.keyboard.RIGHT ||
+            this.world.keyboard.LEFT ||
+            this.world.keyboard.SPACE
+        ) {
+            this.idleStartTime = Date.now();
+        }
+    }
+
+    /**
+     * Starts the character animation handling.
+     */
+    startAnimations() {
         setInterval(() => {
             this.interval_counter++;
 
             if (this.isHurt()) {
-                if (this.currentAnimation !== 'hurt') {
-                    this.currentAnimation = 'hurt';
-                    this.currentImage = 0;
-                }
+                this.handleHurtAnimation();
 
-                this.playAnimation(this.IMAGES_HURT, true);
-            }
+            } else if (this.isDead()) {
+                this.handleDeadAnimation();
 
-            else if (this.isDead()) {
-                if (this.currentAnimation !== 'dead') {
-                    this.currentAnimation = 'dead';
-                    this.currentImage = 0;
-                }
+            } else if (this.isAboveGround()) {
+                this.handleJumpAnimation();
 
-                this.playAnimation(this.IMAGES_DEAD, false);
-            }
-
-            else if (this.isAboveGround()) {
-                if (this.currentAnimation !== 'jump') {
-                    this.currentAnimation = 'jump';
-                    this.currentImage = 0;
-                }
-
-                this.playAnimation(this.IMAGES_JUMP, true);
-            }
-
-            else if (this.canMove && (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)) {
-                if (this.currentAnimation !== 'walking') {
-                    this.currentAnimation = 'walking';
-                    this.currentImage = 0;
-                }
-
-                this.playAnimation(this.IMAGES_WALKING, true);
+            } else if (this.canMove &&
+                (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)
+            ) {
+                this.handleWalkingAnimation();
 
             } else {
-                const idleTime = Date.now() - this.idleStartTime;
-
-                if (idleTime >= 5000) {
-                    if (this.currentAnimation !== 'sleep') {
-                        this.currentAnimation = 'sleep';
-                        this.currentImage = 0;
-                    }
-
-                    this.playAnimation(this.IMAGES_SLEEP, true);
-
-                } else if (this.interval_counter % 2 === 0) {
-                    if (this.currentAnimation !== 'idle') {
-                        this.currentAnimation = 'idle';
-                        this.currentImage = 0;
-                    }
-
-                    this.playAnimation(this.IMAGES_IDLE, true);
-                }
+                this.handleIdleAnimation();
             }
 
         }, 100);
+    }
+
+    /**
+     * Handles the character's hurt animation.
+     */
+    handleHurtAnimation() {
+        if (this.currentAnimation !== 'hurt') {
+            this.currentAnimation = 'hurt';
+            this.currentImage = 0;
+        }
+
+        this.playAnimation(this.IMAGES_HURT, true);
+    }
+
+    /**
+     * Handles the character's death animation.
+     */
+    handleDeadAnimation() {
+        if (this.currentAnimation !== 'dead') {
+            this.currentAnimation = 'dead';
+            this.currentImage = 0;
+        }
+
+        this.playAnimation(this.IMAGES_DEAD, false);
+    }
+
+    /**
+     * Handles the character's jump animation.
+     */
+    handleJumpAnimation() {
+        if (this.currentAnimation !== 'jump') {
+            this.currentAnimation = 'jump';
+            this.currentImage = 0;
+        }
+
+        this.playAnimation(this.IMAGES_JUMP, true);
+    }
+
+    /**
+     * Handles the character's walking animation.
+     */
+    handleWalkingAnimation() {
+        if (this.currentAnimation !== 'walking') {
+            this.currentAnimation = 'walking';
+            this.currentImage = 0;
+        }
+
+        this.playAnimation(this.IMAGES_WALKING, true);
+    }
+
+    /**
+     * Handles the character's idle and sleep animations.
+     */
+    handleIdleAnimation() {
+        const idleTime = Date.now() - this.idleStartTime;
+
+        if (idleTime >= 5000) {
+            if (this.currentAnimation !== 'sleep') {
+                this.currentAnimation = 'sleep';
+                this.currentImage = 0;
+            }
+
+            this.playAnimation(this.IMAGES_SLEEP, true);
+
+        } else if (this.interval_counter % 2 === 0) {
+            if (this.currentAnimation !== 'idle') {
+                this.currentAnimation = 'idle';
+                this.currentImage = 0;
+            }
+
+            this.playAnimation(this.IMAGES_IDLE, true);
+        }
     }
 
     /**
@@ -252,10 +339,7 @@ class Character extends MoveableObject {
     throwBottle() {
         let offset = this.otherDirection ? -50 : 100;
 
-        let thrownBottle = new ThrowableBottle(
-            this.x + offset,
-            this.y + 100,
-            this.otherDirection
+        let thrownBottle = new ThrowableBottle(this.x + offset, this.y + 100, this.otherDirection
         );
 
         if (this.otherDirection) {

@@ -7,7 +7,7 @@
 class Boss extends MoveableObject {
     width = 250;
     height = 350;
-    energy = 100;
+    energy = 200;
     x = 5000;
     speed = 0.5;
     damage = 10;
@@ -17,6 +17,8 @@ class Boss extends MoveableObject {
     attackDamageDone = false;
     deadAnimationFinished = false;
     deadAnimationEnding = false;
+    chickensSummonedAt60 = false;
+    chickensSummonedAt30 = false;
 
     currentAnimation = 'alert';
 
@@ -87,18 +89,39 @@ class Boss extends MoveableObject {
     hit(damage) {
         super.hit(damage);
         this.updateSpeed();
+
+        if (this.energy <= 120 && !this.chickensSummonedAt60) {
+            this.chickensSummonedAt60 = true;
+            this.summonChickens();
+        }
+
+        if (this.energy <= 60 && !this.chickensSummonedAt30) {
+            this.chickensSummonedAt30 = true;
+            this.summonChickens();
+        }
+    }
+
+    /**
+     * Creates and adds two chickens near the boss with
+     * different movement speeds.
+     */
+    summonChickens() {
+        const chicken1 = new Chicken(this.x - 100, 1.5);
+        const chicken2 = new Chicken(this.x - 180, 2.5);
+
+        this.world.level.enemies.push(chicken1, chicken2);
     }
 
     /**
      * Updates the boss speed based on its remaining energy.
      */
     updateSpeed() {
-        if (this.energy <= 30) {
-            this.speed = 1.5;
-        } else if (this.energy <= 60) {
-            this.speed = 1;
+        if (this.energy <= 60) {
+            this.speed = 5;
+        } else if (this.energy <= 120) {
+            this.speed = 2;
         } else {
-            this.speed = 0.5;
+            this.speed = 1;
         }
     }
 
@@ -108,7 +131,7 @@ class Boss extends MoveableObject {
      * @returns {boolean} True if the character is within attack range.
      */
     isCharacterInAttackRange() {
-        return Math.abs(this.world.character.x - this.x) < 150;
+        return Math.abs(this.world.character.x - this.x) < 220;
     }
 
     /**

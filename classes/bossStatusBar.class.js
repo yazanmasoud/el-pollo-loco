@@ -26,11 +26,12 @@ class BossStatusBar extends StatusBar {
     }
 
     /**
-     * Updates the boss health bar from the current boss energy.
+     * Updates the boss health bar based on the current boss energy.
      *
      * @param {number} energy - The current boss energy.
      */
     setBossEnergy(energy) {
-        this.setPercentage(energy);
+        const percentage = energy / 200 * 100;
+        this.setPercentage(percentage);
     }
 }

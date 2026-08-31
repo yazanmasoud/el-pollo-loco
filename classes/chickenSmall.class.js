@@ -33,14 +33,22 @@ class ChickenSmall extends MoveableObject {
      * Creates a new small chicken with a random position
      * and movement speed.
      */
-    constructor() {
+    constructor(x = null, speed = null) {
         super();
         this.setGroundPosition();
-        this.x = 200 + Math.random() * 5000;
-        this.speed = 0.15 + Math.random() * 0.15;
+
+        this.x = x !== null
+            ? x
+            : 200 + Math.random() * 5000;
+
+        this.speed = speed !== null
+            ? speed
+            : 0.15 + Math.random() * 0.15;
+
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGE_DEAD);
         this.img = this.imageCache[this.IMAGES_WALKING[0]];
+
         this.animate();
     }
 

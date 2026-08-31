@@ -8,7 +8,30 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url("assets/img/5_background/layers/air.png");
+    background-image: linear-gradient(rgba(0, 0, 0, .10), rgba(0, 0, 0, .40)), url("assets/img/5_background/gameBackground.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+h1 {
+    margin: 25px 0 25px;
+
+    font-size: 36px;
+    font-weight: 700;
+
+    background: linear-gradient(to bottom,
+            #ffffff,
+            #fff9cf 40%,
+            #ffe98a 70%,
+            #ffd15c);
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, .25);
 }
 
 canvas {

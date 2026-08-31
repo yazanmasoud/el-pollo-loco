@@ -24,6 +24,7 @@ class BossIntro {
         this.active = true;
         this.phase = 'cameraToBoss';
         this.world.character.canMove = false;
+        this.world.level.enemies = [];
         this.startCameraX = this.world.camera_x;
 
         setInterval(() => {

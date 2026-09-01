@@ -21,6 +21,8 @@ function init() {
 
     audioManager = world.audioManager;
 
+    initMobileControls();
+
 
     if (sessionStorage.getItem('restartGame') === 'true') {
         sessionStorage.removeItem('restartGame');
@@ -162,7 +164,7 @@ function closeLegalNotice() {
  * keyboard control states.
  */
 window.addEventListener('keydown', (event) => {
-    if (world.gameWon || world.gameLost) {
+    if (!world.gameStarted || world.gameWon || world.gameLost) {
         return;
     }
 
@@ -213,3 +215,45 @@ window.addEventListener('keyup', (event) => {
         keyboard.D = false;
     }
 });
+
+/**
+ * Initializes the mobile touch controls.
+ */
+function initMobileControls() {
+    const moveLeft = document.getElementById('moveLeft');
+    const moveRight = document.getElementById('moveRight');
+    const jump = document.getElementById('jump');
+    const throwButton = document.getElementById('throw');
+
+    addTouchControl(moveLeft, 'LEFT');
+    addTouchControl(moveRight, 'RIGHT');
+    addTouchControl(jump, 'SPACE');
+    addTouchControl(throwButton, 'D');
+}
+
+
+/**
+ * Connects a touch button to a keyboard control.
+ *
+ * @param {HTMLElement} button - The mobile control button.
+ * @param {string} key - The keyboard property to control.
+ */
+function addTouchControl(button, key) {
+    button.addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        keyboard[key] = true;
+    });
+
+    button.addEventListener('touchend', (event) => {
+        event.preventDefault();
+        keyboard[key] = false;
+    });
+
+    button.addEventListener('touchcancel', () => {
+        keyboard[key] = false;
+    });
+
+    button.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+    });
+}

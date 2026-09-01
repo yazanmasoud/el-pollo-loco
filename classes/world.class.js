@@ -22,9 +22,10 @@ class World {
     bossStarted = false;
 
     throwableBottles = [];
+    intervalIds = [];
     ctx;
     camera_x = 0;
-    level = level1;
+    level = createLevel1();
 
 
     /**
@@ -50,6 +51,30 @@ class World {
         this.checkLevelEnd();
         this.checkGameLost();
         this.checkGameWon();
+    }
+
+    /**
+     * Creates and stores a game interval.
+     *
+     * @param {Function} callback - The function to execute.
+     * @param {number} time - The interval time in milliseconds.
+     */
+    setGameInterval(callback, time) {
+        const interval = setInterval(callback, time);
+        this.intervalIds.push(interval);
+    }
+
+    /**
+     * Stops all game intervals.
+     */
+    stopGame() {
+        this.intervalIds.forEach((interval) => {
+            clearInterval(interval);
+        });
+
+        this.intervalIds = [];
+
+        cancelAnimationFrame(this.animationFrameId);
     }
 
     /**
@@ -79,12 +104,13 @@ class World {
      * Continuously checks for collisions between throwable bottles and enemies.
      */
     checkBottleEnemyCollisions() {
-        setInterval(() => {
+        this.setGameInterval(() => {
             this.throwableBottles.forEach((bottle) => {
                 this.handleBottleEnemyCollision(bottle);
             });
         }, 1000 / 25);
     }
+
 
     /**
      * Handles collisions between a throwable bottle and active enemies.
@@ -155,7 +181,7 @@ class World {
      * Removes collected coins and increases the character's coin amount.
      */
     checkCoinsCollisions() {
-        setInterval(() => {
+        this.setGameInterval(() => {
             this.level.coins.forEach((coin, index) => {
                 if (this.character.isColliding(coin)) {
                     this.level.coins.splice(index, 1);
@@ -170,7 +196,7 @@ class World {
      * Removes collected bottles and increases the character's bottle amount.
      */
     checkBottleCollisions() {
-        setInterval(() => {
+        this.setGameInterval(() => {
             this.level.bottles.forEach((bottle, index) => {
                 if (this.character.isColliding(bottle)) {
                     this.level.bottles.splice(index, 1);
@@ -185,7 +211,7 @@ class World {
      * Starts the boss introduction when the level end is reached.
      */
     checkLevelEnd() {
-        setInterval(() => {
+        this.setGameInterval(() => {
             if (this.character.x >= this.level.level_End_X && !this.bossStarted) {
                 this.boss = new Boss();
                 this.boss.world = this;
@@ -200,7 +226,7 @@ class World {
      * Checks whether the character has lost the game.
      */
     checkGameLost() {
-        setInterval(() => {
+        this.setGameInterval(() => {
             if (this.character.isDead() && !this.gameLost) {
                 this.gameLost = true;
                 resetKeyboard();
@@ -219,7 +245,7 @@ class World {
      * Checks whether the character has won the game.
      */
     checkGameWon() {
-        setInterval(() => {
+        this.setGameInterval(() => {
             if (
                 this.boss &&
                 this.boss.deadAnimationFinished &&
@@ -249,7 +275,7 @@ class World {
             }
         }
 
-        requestAnimationFrame(() => {
+        this.animationFrameId = requestAnimationFrame(() => {
             this.draw();
         });
     }
@@ -374,7 +400,7 @@ class World {
      * Continuously removes broken bottles from the throwable bottles array.
      */
     removeBrokenBottles() {
-        setInterval(() => {
+        this.setGameInterval(() => {
             for (let i = 0; i < this.throwableBottles.length; i++) {
                 let bottle = this.throwableBottles[i];
 

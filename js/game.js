@@ -53,8 +53,17 @@ function startGame() {
  * Restarts the game immediately.
  */
 function restartGame() {
-    sessionStorage.setItem('restartGame', 'true');
-    location.reload();
+    resetKeyboard();
+
+    world.stopGame();
+    world.audioManager.stopGameMusic();
+
+    world = new World(canvas, keyboard);
+    audioManager = world.audioManager;
+
+    document.getElementById('endScreenOverlay').style.display = 'none';
+
+    startGame();
 }
 
 /**

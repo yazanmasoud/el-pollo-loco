@@ -30,6 +30,14 @@ class AudioManager {
     }
 
     /**
+     * Stops and resets the game music.
+     */
+    stopGameMusic() {
+        this.gameMusic.pause();
+        this.gameMusic.currentTime = 0;
+    }
+
+    /**
      * Loads the saved volume state from Local Storage.
      */
     loadVolumeState() {

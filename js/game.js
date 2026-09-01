@@ -5,6 +5,11 @@ let keyboard = new Keyboard();
 let fullscreenButton;
 let audioManager;
 
+function detectTouchDevice() {
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        document.body.classList.add('is-touch-device');
+    }
+}
 
 /**
  * Initializes the game.
@@ -12,6 +17,7 @@ let audioManager;
  * and required DOM elements.
  */
 function init() {
+    detectTouchDevice();
     fullscreenButton = document.getElementById("fullscreen");
 
     document.onfullscreenchange = updateFullscreenIcon;

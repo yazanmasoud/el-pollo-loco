@@ -105,9 +105,9 @@
     display: none;
 }
 
-@media (max-width: 900px) {
+@media (orientation: landscape) {
 
-    .mobileControls {
+    body.is-touch-device .mobileControls {
         position: absolute;
         left: 15px;
         right: 15px;

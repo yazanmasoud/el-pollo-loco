@@ -117,26 +117,6 @@ class AudioManager {
     }
 
     /**
- * Returns all game audio elements.
- *
- * @returns {HTMLAudioElement[]} All audio elements.
- */
-    getAllSounds() {
-        return [
-            this.gameMusic,
-            this.jumpSound,
-            this.walkingSound,
-            this.characterHurtSound,
-            this.characterDieSound,
-            this.throwBottleSound,
-            this.chickenDieSound,
-            this.bossHurtSound,
-            this.bossDieSound,
-            this.gameOverSound
-        ];
-    }
-
-    /**
      * Changes the volume level between high, low, and muted.
      */
     controlVolume() {

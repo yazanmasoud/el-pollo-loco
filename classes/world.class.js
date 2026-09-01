@@ -1,36 +1,27 @@
 /**
- * Represents the game world.
- * Manages the character, enemies, collectibles, boss,
- * collisions, camera, and rendering of all game objects.
+ * Represents and manages the game world.
  */
 class World {
     character = new Character();
     healthStatusBar = new HealthStatusBar();
     coinsStatusBar = new CoinsStatusBar();
     bottleStatusBar = new BottleStatusBar();
-
     startScreen = new StartScreen();
-
-
     boss;
     bossIntro;
     bossStatusBar;
-
     gameStarted = false;
     gameWon = false;
     gameLost = false;
     bossStarted = false;
-
     throwableBottles = [];
     intervalIds = [];
     ctx;
     camera_x = 0;
     level = createLevel1();
 
-
     /**
      * Creates a new game world.
-     *
      * @param {HTMLCanvasElement} canvas - The canvas element used to render the game.
      * @param {Keyboard} keyboard - The keyboard object used to control the character.
      */
@@ -55,7 +46,6 @@ class World {
 
     /**
      * Creates and stores a game interval.
-     *
      * @param {Function} callback - The function to execute.
      * @param {number} time - The interval time in milliseconds.
      */
@@ -80,7 +70,6 @@ class World {
     /**
      * Defeats an enemy, plays its death animation and removes it
      * from the level after a short delay.
-     *
      * @param {MoveableObject} enemy - The enemy to defeat.
      */
     killEnemy(enemy) {
@@ -267,7 +256,8 @@ class World {
     draw() {
         if (!this.gameStarted) {
             this.addToMap(this.startScreen);
-        } else {this.drawGame();
+        } else {
+            this.drawGame();
 
             if (this.gameLost || this.gameWon) {
                 this.drawDarkOverlay();
@@ -326,7 +316,7 @@ class World {
             this.character.bottleAmount, this.level.totalBottles
         );
 
-        if (this.boss) {this.bossStatusBar.setBossEnergy(this.boss.energy);}
+        if (this.boss) { this.bossStatusBar.setBossEnergy(this.boss.energy); }
     }
 
     /**

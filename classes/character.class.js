@@ -116,6 +116,7 @@ class Character extends MoveableObject {
      * @param {number} damage - The amount of damage received.
      */
     hit(damage) {
+        this.idleStartTime = Date.now();
         super.hit(damage);
 
         if (this.isDead() && !this.deathSoundPlayed) {
@@ -237,17 +238,21 @@ class Character extends MoveableObject {
      */
     startAnimations() {
         setInterval(() => {
-            if (!this.world.gameStarted) {return;}
+            if (!this.world.gameStarted) { return; }
             this.interval_counter++;
 
-            if (this.isHurt()) {this.handleHurtAnimation();
+            if (this.isHurt()) {
+                this.handleHurtAnimation();
 
-            } else if (this.isDead()) {this.handleDeadAnimation();
+            } else if (this.isDead()) {
+                this.handleDeadAnimation();
 
-            } else if (this.isAboveGround()) {this.handleJumpAnimation();
+            } else if (this.isAboveGround()) {
+                this.handleJumpAnimation();
 
-            } else if (this.canMove &&(this.world.keyboard.RIGHT || this.world.keyboard.LEFT)
-            ) {this.handleWalkingAnimation();
+            } else if (this.canMove && (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)
+            ) {
+                this.handleWalkingAnimation();
 
             } else { this.handleIdleAnimation(); }
 

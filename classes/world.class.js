@@ -267,8 +267,7 @@ class World {
     draw() {
         if (!this.gameStarted) {
             this.addToMap(this.startScreen);
-        } else {
-            this.drawGame();
+        } else {this.drawGame();
 
             if (this.gameLost || this.gameWon) {
                 this.drawDarkOverlay();
@@ -327,9 +326,7 @@ class World {
             this.character.bottleAmount, this.level.totalBottles
         );
 
-        if (this.boss) {
-            this.bossStatusBar.setBossEnergy(this.boss.energy);
-        }
+        if (this.boss) {this.bossStatusBar.setBossEnergy(this.boss.energy);}
     }
 
     /**

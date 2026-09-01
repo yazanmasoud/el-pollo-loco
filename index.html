@@ -168,13 +168,9 @@
         </div>
 
         <!-- Mobile Game Menu -->
-        <div id="mobileMenuOverlay" class="mobileMenuOverlay">
+        <div id="mobileMenuOverlay" class="mobileMenuOverlay" onclick="closeMobileMenu()">
 
-            <div class="mobileMenuDialog">
-
-                <button class="iconButton resumeButton" onclick="resumeGame()">
-                    ▶
-                </button>
+            <div class="mobileMenuDialog" onclick="event.stopPropagation()">
 
                 <button class="iconButton mobileSoundButton" onclick="audioManager.controlVolume()">
                 </button>

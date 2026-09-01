@@ -65,6 +65,10 @@ function exitGame() {
     location.reload();
 }
 
+function closeMobileMenu() {
+    document.getElementById('mobileMenuOverlay').style.display = 'none';
+}
+
 /**
  * Resets all keyboard controls.
  */

@@ -17,6 +17,10 @@ class CollisionManager {
      */
     checkEnemyCollisions() {
         setInterval(() => {
+            if (!this.world.gameStarted) {
+                return;
+            }
+
             for (let i = 0; i < this.world.level.enemies.length; i++) {
                 this.handleEnemyCollision(
                     this.world.level.enemies[i]

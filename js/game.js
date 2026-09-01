@@ -34,6 +34,7 @@ function init() {
  * Starts the game and hides the start screen controls.
  */
 function startGame() {
+    world.character.idleStartTime = Date.now();
     world.gameStarted = true;
 
     audioManager.playGameMusic();

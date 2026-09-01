@@ -5,7 +5,6 @@
  */
 class World {
     character = new Character();
-    statusBar = new StatusBar();
     healthStatusBar = new HealthStatusBar();
     coinsStatusBar = new CoinsStatusBar();
     bottleStatusBar = new BottleStatusBar();

@@ -23,6 +23,8 @@ class AudioManager {
      */
     constructor() {
         this.muteButton = document.getElementById('mute');
+        this.mobileSoundButton = document.querySelector('.mobileSoundButton');
+
         this.setupSounds();
         this.loadVolumeState();
     }
@@ -61,18 +63,20 @@ class AudioManager {
      * Updates the volume button icon.
      */
     updateVolumeIcon() {
+        let icon;
+
         if (this.volumeState === 2) {
-            this.muteButton.style.backgroundImage =
-                'url("assets/img/icons/volume-high.svg")';
+            icon = 'url("assets/img/icons/volume-high.svg")';
 
         } else if (this.volumeState === 1) {
-            this.muteButton.style.backgroundImage =
-                'url("assets/img/icons/volume-low.svg")';
+            icon = 'url("assets/img/icons/volume-low.svg")';
 
         } else {
-            this.muteButton.style.backgroundImage =
-                'url("assets/img/icons/volume-off.svg")';
+            icon = 'url("assets/img/icons/volume-off.svg")';
         }
+
+        this.muteButton.style.backgroundImage = icon;
+        this.mobileSoundButton.style.backgroundImage = icon;
     }
 
     setupSounds() {

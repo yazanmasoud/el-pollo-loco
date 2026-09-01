@@ -138,8 +138,17 @@
 
         <!-- Game Buttons -->
         <div class="gameButtons">
-            <button id="mute" class="iconButton muteButton" onclick="audioManager.controlVolume()">
+
+            <button id="mute" class="iconButton muteButton" onclick="audioManager.controlVolume()"></button>
+
+            <div class="rightGameButtons">
+
+                <button id="home" class="iconButton homeButton" onclick="exitGame()"></button>
+
                 <button id="fullscreen" class="iconButton fullscreen-button" onclick="toggleFullscreen()"></button>
+
+            </div>
+
         </div>
 
         <!-- Mobile Controls -->
@@ -150,9 +159,32 @@
                 <button id="moveRight">→</button>
             </div>
 
+            <button id="mobileMenu" class="mobileMenu">☰</button>
             <div class="mobileRight">
                 <button id="jump">JUMP</button>
                 <button id="throw">THROW</button>
+            </div>
+
+        </div>
+
+        <!-- Mobile Game Menu -->
+        <div id="mobileMenuOverlay" class="mobileMenuOverlay">
+
+            <div class="mobileMenuDialog">
+
+                <button class="iconButton resumeButton" onclick="resumeGame()">
+                    ▶
+                </button>
+
+                <button class="iconButton mobileSoundButton" onclick="audioManager.controlVolume()">
+                </button>
+
+                <button class="iconButton homeButton" onclick="exitGame()">
+                </button>
+
+                <button class="iconButton fullscreen-button mobileFullscreenButton" onclick="toggleFullscreen()">
+                </button>
+
             </div>
 
         </div>

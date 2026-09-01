@@ -1,8 +1,8 @@
 let canvas;
 let world;
-let music;
 let keyboard = new Keyboard();
 let fullscreenButton;
+let mobileFullscreenButton;
 let audioManager;
 
 function detectTouchDevice() {
@@ -13,13 +13,13 @@ function detectTouchDevice() {
 
 /**
  * Initializes the game.
- * Sets up the canvas, world, music, fullscreen functionality,
- * and required DOM elements.
+ * Sets up the canvas, world, fullscreen functionality,
+ * mobile controls, and required DOM elements.
  */
 function init() {
     detectTouchDevice();
-    fullscreenButton = document.getElementById("fullscreen");
-
+    fullscreenButton = document.getElementById('fullscreen');
+    mobileFullscreenButton = document.querySelector('.mobileFullscreenButton');
     document.onfullscreenchange = updateFullscreenIcon;
 
     canvas = document.getElementById('canvas');
@@ -47,7 +47,6 @@ function startGame() {
 
     document.getElementById('startButton').style.display = 'none';
     document.getElementById('controlsButton').style.display = 'none';
-    document.getElementById('fullscreen').style.display = 'none';
 }
 
 /**
@@ -124,13 +123,16 @@ function toggleFullscreen() {
  * Updates the fullscreen button icon depending on the current fullscreen state.
  */
 function updateFullscreenIcon() {
+    let icon;
+
     if (document.fullscreenElement) {
-        fullscreenButton.style.backgroundImage =
-            'url("../assets/img/icons/shrink.svg")';
+        icon = 'url("../assets/img/icons/shrink.svg")';
     } else {
-        fullscreenButton.style.backgroundImage =
-            'url("../assets/img/icons/expand.svg")';
+        icon = 'url("../assets/img/icons/expand.svg")';
     }
+
+    fullscreenButton.style.backgroundImage = icon;
+    mobileFullscreenButton.style.backgroundImage = icon;
 }
 
 
@@ -231,13 +233,19 @@ function initMobileControls() {
     const moveRight = document.getElementById('moveRight');
     const jump = document.getElementById('jump');
     const throwButton = document.getElementById('throw');
+    const mobileMenu = document.getElementById('mobileMenu');
 
     addTouchControl(moveLeft, 'LEFT');
     addTouchControl(moveRight, 'RIGHT');
     addTouchControl(jump, 'SPACE');
     addTouchControl(throwButton, 'D');
+
+    mobileMenu.addEventListener('click', openMobileMenu);
 }
 
+function openMobileMenu() {
+    document.getElementById('mobileMenuOverlay').style.display = 'flex';
+}
 
 /**
  * Connects a touch button to a keyboard control.

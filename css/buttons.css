@@ -5,18 +5,22 @@
     top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
+
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 18px;
+
     z-index: 2;
 }
 
 .menuButton {
     width: 170px;
     height: 40px;
+
     border: 2px solid #9b4d00;
     border-radius: 16px;
+
     background: linear-gradient(to bottom,
             #ffd96a,
             #ffc547 55%,
@@ -24,58 +28,74 @@
 
     color: white;
     font-size: 24px;
-    letter-spacing: .5px;
-    text-shadow: 0 3px 3px rgba(0, 0, 0, .25);
+    letter-spacing: 0.5px;
+    text-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
 
     cursor: pointer;
 
     box-shadow:
         0 1px 0 #8b4800,
-        0 4px 16px rgba(0, 0, 0, .25);
+        0 4px 16px rgba(0, 0, 0, 0.25);
 
     transition:
-        transform .18s ease,
-        box-shadow .18s ease,
-        filter .18s ease;
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
 }
 
 .menuButton:hover {
     transform: scale(1.03);
     filter: brightness(1.06);
+
     box-shadow:
         0 2px 0 #8b4800,
-        0 10px 18px rgba(0, 0, 0, .3);
+        0 10px 18px rgba(0, 0, 0, 0.3);
 }
 
 .menuButton:active {
-    transform: scale(.98);
+    transform: scale(0.98);
+
     box-shadow:
         0 1px 0 #8b4800,
-        0 2px 10px rgba(0, 0, 0, .2);
+        0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* ---------- ICON BUTTONS ---------- */
+
+/* ---------- GAME ICON BUTTONS ---------- */
 
 .gameButtons {
     position: absolute;
     left: 20px;
     right: 20px;
     bottom: 20px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.rightGameButtons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
 .iconButton {
+    width: 35px;
+    height: 35px;
+
     border: none;
-    background: transparent;
+
+    background-color: transparent;
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+
     cursor: pointer;
+
     transition:
-        transform .18s ease,
-        filter .18s ease;
+        transform 0.18s ease,
+        filter 0.18s ease;
 }
 
 .iconButton:hover {
@@ -84,20 +104,57 @@
 }
 
 .iconButton:active {
-    transform: scale(.95);
+    transform: scale(0.95);
 }
 
 .muteButton {
-    width: 35px;
-    height: 35px;
     background-image: url("../assets/img/icons/volume-high.svg");
 }
 
+.homeButton {
+    background-image: url("../assets/img/icons/house.svg");
+}
+
 .fullscreen-button {
-    width: 35px;
-    height: 35px;
     background-image: url("../assets/img/icons/expand.svg");
 }
+
+
+/* ---------- MOBILE GAME MENU ---------- */
+
+.mobileMenuOverlay {
+    position: absolute;
+    inset: 0;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.35);
+
+    z-index: 100;
+}
+
+.mobileMenuDialog {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.mobileMenuDialog .iconButton {
+    width: 45px;
+    height: 45px;
+}
+
+.mobileSoundButton {
+    background-image: url("../assets/img/icons/volume-high.svg");
+}
+
+.resumeButton {
+    color: white;
+    font-size: 24px;
+}
+
 
 /* ---------- MOBILE CONTROLS ---------- */
 
@@ -106,6 +163,10 @@
 }
 
 @media (orientation: landscape) {
+
+    body.is-touch-device .gameButtons {
+        display: none;
+    }
 
     body.is-touch-device .mobileControls {
         position: absolute;
@@ -118,8 +179,12 @@
         align-items: center;
 
         z-index: 50;
+
         pointer-events: none;
     }
+
+
+    /* Button groups */
 
     .mobileLeft,
     .mobileRight {
@@ -129,31 +194,56 @@
         pointer-events: auto;
     }
 
+
+    /* All mobile buttons */
+
     .mobileControls button {
         width: 55px;
         height: 55px;
+        padding: 0;
 
-        border: 2px solid #9b4d00;
+        border: 2px solid rgba(155, 77, 0, 0.5);
         border-radius: 50%;
 
-        background: rgba(255, 217, 106, 0.85);
+        background: rgba(255, 217, 106, 0.45);
 
-        color: #6d3500;
+        color: rgba(109, 53, 0, 0.7);
+
         font-family: 'Fredoka';
         font-size: 16px;
         font-weight: bold;
+
+        cursor: pointer;
 
         touch-action: manipulation;
         user-select: none;
         -webkit-user-select: none;
 
-        cursor: pointer;
+        pointer-events: auto;
     }
+
+
+    /* Center menu button */
+
+    .mobileMenu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 20px;
+        font-weight: normal;
+    }
+
+
+    /* Action buttons */
 
     .mobileRight button {
         width: 80px;
         font-size: 14px;
     }
+
+
+    /* Touch feedback */
 
     .mobileControls button:active {
         transform: scale(0.92);

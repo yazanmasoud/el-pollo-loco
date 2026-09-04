@@ -115,6 +115,10 @@
     background-image: url("../assets/img/icons/house.svg");
 }
 
+body:not(.game-started) .homeButton {
+    display: none;
+}
+
 .fullscreen-button {
     background-image: url("../assets/img/icons/expand.svg");
 }
@@ -168,11 +172,11 @@
         display: none;
     }
 
-    body.is-touch-device .mobileControls {
+    body.is-touch-device.game-started .mobileControls {
         position: absolute;
-        left: 15px;
-        right: 15px;
-        bottom: 15px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
 
         display: flex;
         justify-content: space-between;

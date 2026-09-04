@@ -36,17 +36,20 @@ function init() {
     }
 }
 
-/**
- * Starts the game and hides the start screen controls.
- */
 function startGame() {
     world.character.idleStartTime = Date.now();
     world.gameStarted = true;
+    document.body.classList.add('game-started');
+
 
     audioManager.playGameMusic();
 
     document.getElementById('startButton').style.display = 'none';
     document.getElementById('controlsButton').style.display = 'none';
+
+    if (document.body.classList.contains('is-touch-device')) {
+        document.getElementById('mobileControls').style.display = 'flex';
+    }
 }
 
 /**

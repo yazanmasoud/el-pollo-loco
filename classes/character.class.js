@@ -12,6 +12,7 @@ class Character extends MoveableObject {
     bottleAmount = 0;
     interval_counter = 0;
     throwPressed = false;
+    throwCooldown = false;
     canMove = true;
     currentAnimation = 'idle';
     idleStartTime = Date.now();
@@ -209,10 +210,16 @@ class Character extends MoveableObject {
             this.world.keyboard.D &&
             this.bottleAmount > 0 &&
             !this.throwPressed &&
+            !this.throwCooldown &&
             this.canMove
         ) {
             this.throwBottle();
             this.throwPressed = true;
+            this.throwCooldown = true;
+
+            setTimeout(() => {
+                this.throwCooldown = false;
+            }, 600);
         }
 
         if (!this.world.keyboard.D) {

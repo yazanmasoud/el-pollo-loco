@@ -90,8 +90,6 @@ class AudioManager {
     setupSounds() {
         this.gameMusic.loop = true;
         this.walkingSound.loop = true;
-
-        this.setVolume(1);
     }
 
     /**
